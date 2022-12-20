@@ -1,0 +1,1378 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.11)  11 OCT 2022 18:17
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**./scope.TEX
+(scope.TEX
+LaTeX2e <2022-06-01> patch level 5
+L3 programming layer <2022-07-04>
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
+File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+)
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks18
+)
+\lst@mode=\count193
+\lst@gtempboxa=\box51
+\lst@token=\toks19
+\lst@length=\count194
+\lst@currlwidth=\dimen139
+\lst@column=\count195
+\lst@pos=\count196
+\lst@lostspace=\dimen140
+\lst@width=\dimen141
+\lst@newlines=\count197
+\lst@lineno=\count198
+\lst@maxwidth=\dimen142
+
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count199
+\lst@skipnumbers=\count266
+\lst@framebox=\box52
+)
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen143
+\ar@mcellbox=\box53
+\extrarowheight=\dimen144
+\NC@list=\toks20
+\extratabsurround=\skip49
+\backup@length=\skip50
+\ar@cellbox=\box54
+)
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip51
+\multirow@cntb=\count267
+\multirow@dima=\skip52
+\bigstrutjot=\dimen145
+)
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count268
+\float@exts=\toks21
+\float@box=\box55
+\@float@everytoks=\toks22
+\@floatcapt=\box56
+)
+(C:\Users\1\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.
+def
+File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count269
+\l__pdf_internal_box=\box57
+)
+(C:/Users\1\OneDrive\Рабочий стол\statisticsPro\StatisticsTesting\au
+xil\scope.aux)
+\openout1 = `scope.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+\c@lstlisting=\count270
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 9.
+
+
+scope.TEX:10: LaTeX Error: Unicode character Г (U+0413)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10             \bf{Г
+                       руппа} & \bf{Ограничения} & \bf{Ба�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character р (U+0440)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10             \bf{Гр
+                         уппа} & \bf{Ограничения} & \bf{Ба�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character у (U+0443)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10             \bf{Гру
+                           ппа} & \bf{Ограничения} & \bf{Ба�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character п (U+043F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10             \bf{Груп
+                             па} & \bf{Ограничения} & \bf{Ба�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character п (U+043F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10             \bf{Групп
+                               а} & \bf{Ограничения} & \bf{Ба�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character а (U+0430)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10             \bf{Группа
+                                 } & \bf{Ограничения} & \bf{Ба�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character О (U+041E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10             \bf{Группа} & \bf{О
+                                           граничения} & \bf{Ба�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character г (U+0433)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10             \bf{Группа} & \bf{Ог
+                                             раничения} & \bf{Ба�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character р (U+0440)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10             \bf{Группа} & \bf{Огр
+                                               аничения} & \bf{Ба�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character а (U+0430)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10             \bf{Группа} & \bf{Огра
+                                                 ничения} & \bf{Ба�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character н (U+043D)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...        \bf{Группа} & \bf{Огран
+                                                  ичения} & \bf{Бал...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character и (U+0438)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...      \bf{Группа} & \bf{Ограни
+                                                  чения} & \bf{Балл...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character ч (U+0447)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...    \bf{Группа} & \bf{Огранич
+                                                  ения} & \bf{Баллы...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character е (U+0435)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...  \bf{Группа} & \bf{Ограниче
+                                                  ния} & \bf{Баллы} ...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character н (U+043D)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...\bf{Группа} & \bf{Ограничен
+                                                  ия} & \bf{Баллы} & ...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character и (U+0438)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...f{Группа} & \bf{Ограничени
+                                                  я} & \bf{Баллы} & \b...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character я (U+044F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...Группа} & \bf{Ограничения
+                                                  } & \bf{Баллы} & \bf{...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character Б (U+0411)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...а} & \bf{Ограничения} & \bf{Б
+                                                  аллы} & \bf{Необх...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character а (U+0430)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...} & \bf{Ограничения} & \bf{Ба
+                                                  ллы} & \bf{Необхо...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character л (U+043B)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...& \bf{Ограничения} & \bf{Бал
+                                                  лы} & \bf{Необход...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character л (U+043B)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...\bf{Ограничения} & \bf{Балл
+                                                  ы} & \bf{Необходи...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character ы (U+044B)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...f{Ограничения} & \bf{Баллы
+                                                  } & \bf{Необходим...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character Н (U+041D)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...ничения} & \bf{Баллы} & \bf{Н
+                                                  еобходимые по�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character е (U+0435)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...ичения} & \bf{Баллы} & \bf{Не
+                                                  обходимые под�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...чения} & \bf{Баллы} & \bf{Нео
+                                                  бходимые подз�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character б (U+0431)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...ения} & \bf{Баллы} & \bf{Необ
+                                                  ходимые подза�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character х (U+0445)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...ния} & \bf{Баллы} & \bf{Необх
+                                                  одимые подзад�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...ия} & \bf{Баллы} & \bf{Необхо
+                                                  димые подзада�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character д (U+0434)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...я} & \bf{Баллы} & \bf{Необход
+                                                  имые подзадач�...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character и (U+0438)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...} & \bf{Баллы} & \bf{Необходи
+                                                  мые подзадачи}...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character м (U+043C)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...& \bf{Баллы} & \bf{Необходим
+                                                  ые подзадачи} &...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character ы (U+044B)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...\bf{Баллы} & \bf{Необходимы
+                                                  е подзадачи} & \...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character е (U+0435)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...f{Баллы} & \bf{Необходимые
+                                                   подзадачи} & \bf...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character п (U+043F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�аллы} & \bf{Необходимые п
+                                                  одзадачи} & \bf{И...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�ллы} & \bf{Необходимые по
+                                                  дзадачи} & \bf{Ин...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character д (U+0434)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�лы} & \bf{Необходимые под
+                                                  задачи} & \bf{Инф...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character з (U+0437)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�ы} & \bf{Необходимые подз
+                                                  адачи} & \bf{Инфо...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character а (U+0430)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�} & \bf{Необходимые подза
+                                                  дачи} & \bf{Инфор...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character д (U+0434)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ... & \bf{Необходимые подзад
+                                                  ачи} & \bf{Информ...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character а (U+0430)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ... \bf{Необходимые подзада
+                                                  чи} & \bf{Информа...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character ч (U+0447)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...bf{Необходимые подзадач
+                                                  и} & \bf{Информац...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character и (U+0438)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...{Необходимые подзадачи
+                                                  } & \bf{Информаци...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character И (U+0418)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�одимые подзадачи} & \bf{И
+                                                  нформация о пр...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character н (U+043D)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�димые подзадачи} & \bf{Ин
+                                                  формация о про...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character ф (U+0444)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�имые подзадачи} & \bf{Инф
+                                                  ормация о пров...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�мые подзадачи} & \bf{Инфо
+                                                  рмация о прове...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character р (U+0440)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�ые подзадачи} & \bf{Инфор
+                                                  мация о провер...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character м (U+043C)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�е подзадачи} & \bf{Информ
+                                                  ация о проверк...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character а (U+0430)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...� подзадачи} & \bf{Информа
+                                                  ция о проверке...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character ц (U+0446)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...подзадачи} & \bf{Информац
+                                                  ия о проверке} ...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character и (U+0438)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...одзадачи} & \bf{Информаци
+                                                  я о проверке} \\...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character я (U+044F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...дзадачи} & \bf{Информация
+                                                   о проверке} \\ \...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...�адачи} & \bf{Информация о
+                                                   проверке} \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character п (U+043F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...дачи} & \bf{Информация о п
+                                                  роверке} \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character р (U+0440)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...ачи} & \bf{Информация о пр
+                                                  оверке} \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...чи} & \bf{Информация о про
+                                                  верке} \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character в (U+0432)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...и} & \bf{Информация о пров
+                                                  ерке} \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character е (U+0435)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...} & \bf{Информация о прове
+                                                  рке} \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character р (U+0440)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...& \bf{Информация о провер
+                                                  ке} \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character к (U+043A)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...\bf{Информация о проверк
+                                                  е} \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:10: LaTeX Error: Unicode character е (U+0435)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 ...f{Информация о проверке
+                                                  } \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:11: LaTeX Error: Unicode character П (U+041F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.11             examples & --- & $0$ & --- & П
+                                                олное \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:11: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.11             examples & --- & $0$ & --- & По
+                                                  лное \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:11: LaTeX Error: Unicode character л (U+043B)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.11 ...       examples & --- & $0$ & --- & Пол
+                                                  ное \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:11: LaTeX Error: Unicode character н (U+043D)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.11 ...     examples & --- & $0$ & --- & Полн
+                                                  ое \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:11: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.11 ...   examples & --- & $0$ & --- & Полно
+                                                  е \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:11: LaTeX Error: Unicode character е (U+0435)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.11 ... examples & --- & $0$ & --- & Полное
+                                                   \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:12: LaTeX Error: Unicode character П (U+041F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.12 ... & $0 \le n \le 40$ & $20$ & examples & П
+                                                  олное \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:12: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.12 ... $0 \le n \le 40$ & $20$ & examples & По
+                                                  лное \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:12: LaTeX Error: Unicode character л (U+043B)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.12 ...0 \le n \le 40$ & $20$ & examples & Пол
+                                                  ное \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:12: LaTeX Error: Unicode character н (U+043D)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.12 ...\le n \le 40$ & $20$ & examples & Полн
+                                                  ое \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:12: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.12 ...e n \le 40$ & $20$ & examples & Полно
+                                                  е \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:12: LaTeX Error: Unicode character е (U+0435)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.12 ...n \le 40$ & $20$ & examples & Полное
+                                                   \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:13: LaTeX Error: Unicode character П (U+041F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...    $2$ & $n \le 2*10^5$ & $22$ & $1$ & П
+                                                  олное \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:13: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...  $2$ & $n \le 2*10^5$ & $22$ & $1$ & По
+                                                  лное \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:13: LaTeX Error: Unicode character л (U+043B)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...$2$ & $n \le 2*10^5$ & $22$ & $1$ & Пол
+                                                  ное \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:13: LaTeX Error: Unicode character н (U+043D)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...$ & $n \le 2*10^5$ & $22$ & $1$ & Полн
+                                                  ое \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:13: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...& $n \le 2*10^5$ & $22$ & $1$ & Полно
+                                                  е \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:13: LaTeX Error: Unicode character е (U+0435)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...$n \le 2*10^5$ & $22$ & $1$ & Полное
+                                                   \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character П (U+041F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...        $3$ &  ---  & $58$ & $1$, $2$ & П
+                                                  ервая ошибка \\...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character е (U+0435)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...      $3$ &  ---  & $58$ & $1$, $2$ & Пе
+                                                  рвая ошибка \\ \...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character р (U+0440)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...    $3$ &  ---  & $58$ & $1$, $2$ & Пер
+                                                  вая ошибка \\ \hline
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character в (U+0432)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...  $3$ &  ---  & $58$ & $1$, $2$ & Перв
+                                                  ая ошибка \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character а (U+0430)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...$3$ &  ---  & $58$ & $1$, $2$ & Перва
+                                                  я ошибка \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character я (U+044F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...$ &  ---  & $58$ & $1$, $2$ & Первая
+                                                   ошибка \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character о (U+043E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...  ---  & $58$ & $1$, $2$ & Первая о
+                                                  шибка \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character ш (U+0448)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...---  & $58$ & $1$, $2$ & Первая ош
+                                                  ибка \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character и (U+0438)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...-  & $58$ & $1$, $2$ & Первая оши
+                                                  бка \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character б (U+0431)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ... & $58$ & $1$, $2$ & Первая ошиб
+                                                  ка \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character к (U+043A)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ... $58$ & $1$, $2$ & Первая ошибк
+                                                  а \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+scope.TEX:14: LaTeX Error: Unicode character а (U+0430)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14 ...58$ & $1$, $2$ & Первая ошибка
+                                                   \\ \hline
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+[1
+
+{C:/Users/1/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+(C:/Users\1\OneDrive\Рабочий стол\statisticsPro\StatisticsTesting\au
+xil\scope.aux) ) 
+Here is how much of TeX's memory you used:
+ 2112 strings out of 478338
+ 34406 string characters out of 2838587
+ 332759 words of memory out of 3000000
+ 20590 multiletter control sequences out of 15000+600000
+ 469567 words of font info for 29 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 39i,7n,48p,226b,262s stack positions out of 10000i,1000n,20000p,200000b,80000s
+<C:/Users/1/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmmi10.pfb><C:/Users/1/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb><C:/Users/1/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmr7.pfb><C:/Users/1/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmsy10.pfb>
+Output written on "C:/Users\1\OneDrive\Рабочий стол\statisticsPro\St
+atisticsTesting\out\scope.pdf" (1 page, 41196 bytes).
+PDF statistics:
+ 26 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

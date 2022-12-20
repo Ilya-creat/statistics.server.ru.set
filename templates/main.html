@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block css %}
+{{ url_for('static', filename='css/main.css') }}
+{% endblock %}
+{% block body %}
+    <header>
+		<a href="/" id="logo">
+			<span>{{ header }}</span>
+		</a>
+		<div id = "about">
+            {% for key,values in header_map.items() %}
+			<a href="{{ values }}" title = "{{ key }}">{{ key }}</a>
+            {% endfor %}
+		</div>
+	</header>
+    {% for cat, msg in get_flashed_messages(True) %}
+	{% if cat == 'error' %}
+	<div class="alert">
+  		<span class="closebtn">×</span>
+  		<strong>Ошибка!</strong> {{ msg }}
+	</div>
+	{% elif cat == 'success' %}
+	<div class="alert success">
+  		<span class="closebtn">×</span>
+  		<strong>Успех!</strong> {{ msg }}
+	</div>
+	{% elif cat == 'info' %}
+	<div class="alert info">
+  		<span class="closebtn">×</span>
+  		<strong>Оповещение.</strong> {{ msg }}
+	</div>
+	{% elif cat == 'warning' %}
+	<div class="alert warning">
+  		<span class="closebtn">×</span>
+  		<strong>Внимание!</strong> {{ msg }}
+	</div>
+	{% endif %}
+	{% endfor %}
+	<div class="main">
+		<div class="my_task">
+			<h4>Мои задачи:</h4>
+			<center>
+				<table>
+					<tr>
+						<th>Задача</th>
+						<th>Статус обновления</th>
+						<th></th>
+					</tr>
+					{% for status, name in my_task.items() %}
+					<tr>
+						<td>{{ name }}</td>
+						<td>-</td>
+						<td>
+							<a href="/task/{{ status }}">Перейти</a><br>
+							<a href="/task/{{ status }}?status=deleted">Удалить</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</center>
+		</div>
+		<div class="news">
+			<h4>События платформы:</h4>
+			<div class="news_txt">
+				<center>
+					{% for time, text in news.items() %}
+					<p><strong>{{ time }}</strong> {{text}}</p>
+					{% endfor %}
+				</center>
+			</div>
+		</div>
+	</div>
+{% endblock %}

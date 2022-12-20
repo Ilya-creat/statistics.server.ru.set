@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{{ url_for('static', filename ='css/login.css') }}
+{% endblock %}
+
+{% block body %}
+    <header>
+		<a href="/" id="logo">
+			<span>{{ header }}</span>
+		</a>
+		<div id = "about">
+            {% for key,values in header_map.items() %}
+			<a href="{{ values }}" title = "{{ key }}">{{ key }}</a>
+            {% endfor %}
+		</div>
+	</header>
+    </div>
+    {% for cat, msg in get_flashed_messages(True) %}
+	{% if cat == 'error' %}
+	<div class="alert">
+  		<span class="closebtn">×</span>
+  		<strong>Ошибка!</strong> {{ msg }}
+	</div>
+	{% elif cat == 'success' %}
+	<div class="alert success">
+  		<span class="closebtn">×</span>
+  		<strong>Успех!</strong> {{ msg }}
+	</div>
+	{% elif cat == 'info' %}
+	<div class="alert info">
+  		<span class="closebtn">×</span>
+  		<strong>Оповещение.</strong> {{ msg }}
+	</div>
+	{% elif cat == 'warning' %}
+	<div class="alert warning">
+  		<span class="closebtn">×</span>
+  		<strong>Внимание!</strong> {{ msg }}
+	</div>
+	{% endif %}
+	{% endfor %}
+    <!--Форма регистрации--->
+    <div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form
+            action="/register" method="post">
+			<h1>Регистрация</h1>
+			{{ form_reg.hidden_tag() }}
+            {% for field in form_reg if field.name not in ['csrf_token', 'submit'] -%}
+                {% if field.errors %}
+                    {{ field(class="invalid") }}
+                <span class="invalid-feedback">
+                    {% for e in field.errors %}
+                    <div>{{ e }}</div>
+                    {% endfor %}
+                </span>
+                {% else %}
+            <div>{{ field() }}</div>
+                {% endif %}
+            {% endfor %}
+            <div>{{ form_reg.submit(class="btn") }}</div>
+		</form>
+	</div>
+    <script>
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container');
+
+    signUpButton.addEventListener('click', () => {
+		container.classList.add("right-panel-active");
+    });
+
+    signInButton.addEventListener('click', () => {
+	    container.classList.remove("right-panel-active");
+    });
+
+    </script>
+    <script>
+    var close = document.getElementsByClassName("closebtn");
+    var i;
+
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function(){
+            var div = this.parentElement;
+            div.style.opacity = "0";
+            setTimeout(function(){ div.style.display = "none"; }, 600);
+        }
+    }
+    </script>
+{% endblock %}

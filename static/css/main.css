@@ -1,0 +1,393 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+
+}
+
+body,html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: #fff;
+  font-family: Trebuchet MS, Helvetica;
+}
+
+/* шапка */
+header {
+  width: 100%;
+  padding: 10px 0.5% 0px 0.5%;
+  background: transparent;
+  float: left;
+}
+
+header #logo{
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+header #logo span {
+  font-size: 1.7em;
+  line-height: 45px;
+  margin-left: 40px;
+  font-family: 'Suez One', serif;
+}
+
+.lk-button {
+  text-decoration: none;
+  padding: 7px 30px;
+  border-radius: 10px;
+  font-size: 1em;
+  background-color: #D1198B;
+  text-shadow: #454545 0 0 2px;
+  cursor: pointer;
+  color: white;
+}
+.lk-button:hover {
+  background-color: #9700BD;
+  text-decoration: none;
+}
+
+@media (min-width: 701px){
+  #logo{
+    float: left;
+    width: 30%;
+    font-size:1.1em;
+  }
+
+  #about{
+    float:right;
+    width: 67%;
+
+  }
+}
+
+@media (max-width: 700px){
+  #logo{
+    margin-top: 15px;
+    width: 100%;
+    font-size:1.5em;
+  }
+  header #logo span{
+    font-size:1.2em;
+  }
+  #about{
+    float:left;
+    width: 100%;
+  }
+}
+
+
+
+#about{
+  text-align:center;
+  font-size: 1em;
+  line-height: 40px;
+  margin-bottom: 10px;
+}
+
+#about > a {color: #000;}
+#about > a:hover:not(:last-child) {color: #b0b0b0;}
+
+#about > a:not(:last-child){
+  margin-right: 7%;
+}
+
+@media (max-width: 650px) {
+  #about {
+    font-size : 0.9em;
+
+  }
+}
+
+@media (max-width: 450px) {
+  .lk-button {
+    padding: 3px 4px;
+    margin-right: 0%;
+  }
+  #about {
+    font-size : 0.8em;
+  }
+}
+
+
+/*Main block*/
+/*one*/
+#main-one {
+  background-image: url(../img/fon.jpg);
+  width: 100%;
+    min-height:100%;
+  padding-top: 70px;
+  background-blend-mode: multiply;
+  background-size: cover;
+  text-align:center;
+  background-attachment: fixed;
+}
+
+#main-one h1{
+  padding-top: 20%;
+  color: #6B00CF;
+}
+
+.floating-button {
+  text-decoration: none;
+  display: inline-block;
+  width: 140px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 45px;
+  margin: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: 600;
+  color: #524f4e;
+  background: white;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+  transition: .3s;
+  cursor: pointer;
+}
+.floating-button:hover {
+  background: #2EE59D;
+  box-shadow: 0 15px 20px rgba(46, 229, 157, .4);
+  color: white;
+  transform: translateY(-7px);
+}
+
+@media(min-width: 1001px){
+  #main-one {
+    height: 1000px;
+    font-size: 1.9em;
+  }
+}
+
+/*two*/
+
+.statistics {
+    width: 100%;
+    background: #151d2d;
+    border-top: 2px dashed #e4e3e3;
+}
+
+.statistics__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 60px 0;
+    margin-top: 20px;
+}
+
+.statistics__header {
+    width: 100%;
+    text-align: center;
+    line-height: 1.3;
+    padding: 0 15px 60px;
+    color: #e2e2e2;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.statistics__element {
+    width: 30%;
+}
+
+.statistics__icon {
+    display: block;
+    width: 60px;
+    height: 50px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.statistics__element p {
+    color: #cdcdcd;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.statistics__number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px
+}
+
+.statistics__title {
+    font-size: 1.125rem;
+}
+#tik-tok {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px
+}
+
+/*Блок о наших возможностях*/
+#overview {
+    float: left;
+    border-top: 2px dashed #e4e3e3;
+    background-image: url(../img/fon.jpg);
+    background-blend-mode: multiply;
+    background-color: #403f40;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    padding: 100px 0;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+}
+
+#overview .img {
+    display: flex;
+    float: left;
+    width: 20%;
+    margin-top: 50px;
+    margin-right: 5%;
+}
+
+#overview img {
+  width: 100%;
+  max-width: 500px;
+}
+
+#overview h2 {font-size: 4em;}
+#overview h4 {color: #ccc; font-size: 1.5em;}
+#overview span {display:block;font-size: 1.2em;}
+
+
+/*Блок faq*/
+
+#faq {
+  background-color: #fff;
+  border-top: 2px dashed #e4e3e3;
+  width: 100%;
+  float: left;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+@media (min-width: 801px){
+  #faq div {
+    width: 25%;
+    margin-left: 6%;;
+    float: left;
+  }
+}
+@media (max-width: 800px){
+  #faq div {
+    width: 80%;
+    margin-left: 10%;;
+    float: left;
+  }
+}
+
+
+#faq .title{
+  font-weight: lighter;
+  color: #a3a0ad;
+  margin-bottom: 20px;
+  font-size: 2.2em;
+  padding-top: 20px;
+}
+
+#faq .heading {
+  color: #7d7d7d;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+#faq p {
+  font-family: Arimo, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #4a4a4a;
+  font-size: 0.95em;
+  margin-bottom: 40px;
+}
+.floating-button {
+  text-decoration: none;
+  display: inline-block;
+  width: 190px;
+  height: 45px;
+  line-height: 50px;
+  border-radius: 40px;
+  margin: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: 600;
+  color: #524f4e;
+  background: white;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+  transition: .3s;
+  cursor: pointer;
+}
+.floating-button:hover {
+  background: #2EE59D;
+  box-shadow: 0 15px 20px rgba(46, 229, 157, .4);
+  color: white;
+  transform: translateY(-7px);
+}
+
+@media (max-width: 560px) {
+  #footer span {font-size: 1em;}
+}
+
+th {
+  font-weight: normal;
+  color: #747474;
+  padding: 10px 15px;
+}
+td {
+  color: #747474;
+  border-top: 1px solid #747474;
+  padding: 10px 15px;
+}
+tr:hover td {
+  background: #e8edff;
+}
+
+
+table {
+  border: 1px solid #747474;
+  border-collapse: separate;
+  empty-cells: hide;
+  width: 70%;
+}
+
+.my_task {
+    padding-top: 60px;
+    width: 50%;
+    float: left;
+}
+.my_task h4{
+    font-size: 1.5em;
+    padding: 0 0 25px 15%;
+}
+
+.news {
+    float: left;
+    padding-top: 60px;
+    width: 40%;
+}
+
+.news h4 {
+    font-size: 1.5em;
+    padding: 0 0 25px 15%;
+}
+
+.news_txt {
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 50px;
+    line-height: 1.5;
+}
