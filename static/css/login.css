@@ -112,70 +112,77 @@ header #logo span {
     font-size : 0.8em;
   }
 }
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  width: 100%;
+ }
 
 .form-container {
-  padding-top: 250px;
-  padding-bottom: 250px;
-  text-align: center;
-}
+  width: 500px;
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px #ccc;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+ }
 
-input[type=text] {
-  padding:10px;
-  margin:10px 0; // add top and bottom margin
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-  border: 2px solid #eee;
-  border-radius:10px;
-  box-shadow:4px 4px 10px rgba(0,0,0,0.06);
-  width: 10%;
-
-}
-input[type=password] {
-  padding:10px;
-  margin:10px 0; // add top and bottom margin
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-  border: 2px solid #eee;
-  border-radius:10px;
-  box-shadow:4px 4px 10px rgba(0,0,0,0.06);
-  width: 10%;
-}
-
-input, text, password {
-  font-family:inherit;
-  font-size: inherit;
-}
-
-.boxing {
-    margin: 20px;
-}
-.check {
-  word-spacing: 6px;
-}
+.form_title {
+  margin: 0 0 32px 0;
+  font-weight: bold;
+ }
 
 .btn {
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    border-color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  font-size: 16px;
+  color :#fff ;
+  background-color: #0071f0;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+ }
+
+.signin-text-input {
+  position: relative;
+  margin-bottom: 32px;
 }
 
-textarea {
-  padding:10px;
-  margin:10px 0; // add top and bottom margin
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-  border: 2px solid #eee;
-  border-radius:10px;
-  box-shadow:4px 4px 10px rgba(0,0,0,0.06);
-  width: 10%;
-}
-
-.main {
-    padding: 100px;
-}
-
-textarea {
-  display: block;
+.form-input {
   width: 100%;
-  box-sizing: border-box;
-  resize: none;
-  min-height: 20em;
+  padding: 0 0 10px 0;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: transparent;
+  outline: none;
+  transition: 0.3s;
 }
+
+.label-input {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  color: #9e9e9e;
+  transition: 0.3s;
+}
+
+.btn:focus,
+.btn:hover{
+  background-color: rgba(0, 113, 240, 0.7);
+ }
+
+.form-input:focus {
+  border-bottom: 1px solid #1a73a8;
+ }
+
+.form-input:focus~.label-input,
+.form-input:not(:focus):valid~.label-input  {
+         top: -18px;
+         font-size:12px;
+         color: #9e9e9e;
+ }
