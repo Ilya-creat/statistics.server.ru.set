@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block css %}
+{{ url_for('static', filename='css/main.css') }}
+{% endblock %}
+{% block body %}
+	<div class="main">
+		<div class="sidebar_stat">
+			<div class="logo_content_stat">
+				<div class="logo_stat">
+					<img class="logo_img_stat" src="{{ url_for('static', filename='img/logo.jpg')}}">
+					<div class="logo_name_stat">{{ header }}</div>
+				</div>
+				<i class="bx bx-menu" id="btn"></i>
+			</div>
+			<ul class="nav_list_stat">
+				{% for key, value in menu.items() %}
+				<li>
+					<a href="{{ value['href'] }}">
+						<i class="{{ value['img-icon'] }}"></i>
+						<span class="links_name_stat">{{ key }}</span>
+					</a>
+					<span class="tooltip_stat">{{ key }}</span>
+				</li>
+				{% endfor %}
+			</ul>
+			{% if admin_menu %}
+			<ul class="admin_nav_list_stat">
+				{% for key, value in admin_menu.items() %}
+				<li>
+					<a href="{{ value['href'] }}">
+						<i class="{{ value['img-icon'] }}"></i>
+						<span class="links_name_stat">{{ key }}</span>
+					</a>
+					<span class="tooltip_stat">{{ key }}</span>
+				</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			<div class="profile_content_stat">
+				<div class="profile_stat">
+					<div class="profile_details_stat">
+						<img src="{{ url_for('static', filename=user["img-user"])}}" alt="">
+						<div class="name_job_stat">
+							<div class="name_stat">{{ user["name"] }}</div>
+							<div class="job_stat" style="color: #{{ user["color"] }}">{{ user["role"] }}</div>
+						</div>
+					</div>
+					<i class="bx bx-log-out" id="log_out"></i>
+				</div>
+			</div>
+			<div class="footer_content_stat">
+				<div class="footer_stat">
+					<div class="footer_details_stat">
+						<div class="name_data_stat">
+							<div class="name_stat">Statistics.Judging</div>
+							<div class="date-copyright">Copyright | {{ date_snap }}</div>
+						</div>
+					</div>
+					<i id="date-copy">23`</i>
+				</div>
+			</div>
+		</div>
+		<div class="home_content">
+			<section>
+				<div class="container py-5">
+				  <div class="row">
+					<div class="col">
+					  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+						  <ol class="breadcrumb mb-0">
+							<li class="breadcrumb-item"><a href="">sjudge@ubuntu ~</a></li>
+							  <li class="breadcrumb-item"><a href="">root</a></li>
+							<li class="breadcrumb-item active" aria-current="page">status-system $</li>
+						  </ol>
+					  </nav>
+					</div>
+				  </div>
+				</div>
+				<div class="container">
+					<H1> Server information </H1>
+					<H3>
+						<span class="label label-success">
+							Active since {{ active_since }} ({{ days_active }} days)
+						</span>
+					</H3>
+					<p class="text-info">
+						{{ system }} {{ release }} {{ version }}
+					</p>
+				</div>
+				{% for block in blocks %}
+					<div class="container">
+						<H2> {{ block.title }} </H2>
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<table>
+								  <tr>
+								  <td>
+									  {{ block.graph }}
+								  </td>
+								  <td>
+								  <div class = "container">
+									<p class="text-primary">
+										{{ block.data.primary }}
+									</p>
+										{% for line in block.data.lines %}
+											<p class="text-info">
+												{{ line }}
+											</p>
+										{% endfor %}
+								  </div>
+								  </td>
+								  </tr>
+								  </table>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+          	</section>
+		</div>
+	</div>
+	<script>
+		let btn = document.querySelector("#btn");
+		let sidebar = document.querySelector(".sidebar_stat");
+		let log_out = document.querySelector("#log_out");
+		btn.onclick = function (){
+			sidebar.classList.toggle("active");
+		}
+		log_out.onclick = function () {
+    		location.href = '{{ url }}/logout';
+		}
+	</script>
+
+{% endblock %}
