@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block css %}
+{{ url_for('static', filename='css/authorization.css') }}
+{% endblock %}
+{% block body %}
+    <header>
+		<a href="/WEB/static" id="logo">
+			<span>{{ header }}</span>
+		</a>
+		<div id = "about">
+            {% for key,values in header_map.items() %}
+			<a href="{{ values }}" title = "{{ key }}">{{ key }}</a>
+            {% endfor %}
+		</div>
+	</header>
+	<main>
+		<div class="form-container">
+			<div class="sign-in-container">
+				<form
+					{% if request.args.get('next') %}
+					action="{{ url_for('main', next=request.args.get('next'))}}"
+					{% else %}
+					action="{{ url_for('main') }}"
+					{% endif %}
+					method="post" >
+					<h1 class="form_title">Вход в Statistics.Judging</h1>
+					{{ form_log.hidden_tag() }}
+					{% for field in form_log if field.name not in ['csrf_token', 'remember', 'submit'] -%}
+						{% if field.errors %}
+							<div class="signup-text-input">
+								{{ field(class_='form-input-invalid') }}
+								<span class="invalid-feedback">
+									{% for e in field.errors %}
+									<div>{{ e }}</div>
+									{% endfor %}
+								</span>
+							</div>
+						{% else %}
+							<div class="signin-text-input">
+								<!--<label class="label-input">{{ field.label.text }}</label>-->
+								{{ field(class_='form-input') }}
+							</div>
+						{% endif %}
+					{% endfor %}
+					<div class="signin-text-input"><a href="{{ url }}/sending?type=forgot">Забыли пароль?</a></div>
+					<div class="signin-text-input">{{ form_log.remember() }} - {{ form_log.remember.label }}</div>
+					<div class="boxing">{{ form_log.submit(class="btn") }}</div>
+				</form>
+			</div>
+		</div>
+	</main>
+{% endblock %}

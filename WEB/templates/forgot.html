@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{{ url_for('static', filename ='css/authorization.css') }}
+{% endblock %}
+
+{% block body %}
+	<main>
+    	<!--Форма восстановления пароля--->
+		<div class="form-container" id="container">
+			<div class="sign-up-container">
+				{% if forms %}
+				<form
+					action="/forgot?session_token={{token}}" method="post">
+					<h1 class="form_title">Восстановление данных в Statistics.Judging</h1>
+					{{ form_forgot.hidden_tag() }}
+					{% for field in form_forgot if field.name not in ['csrf_token', 'submit'] -%}
+						{% if field.errors %}
+							<div class="signup-text-input">
+								{{ field(class_='form-input-invalid') }}
+								<span class="invalid-feedback">
+									{% for e in field.errors %}
+									<span id="invalid-text">{{ e }}</span>
+									{% endfor %}
+								</span>
+							</div>
+						{% else %}
+							<div class="signup-text-input">
+								<!--<label class="label-input">{{ field.label.text }}</label>-->
+								{{ field(class_='form-input') }}
+							</div>
+						{% endif %}
+					{% endfor %}
+					<div>{{ form_forgot.submit(class="btn") }}</div>
+				</form>
+				{% else %}
+				<div class="no-content">
+					<div id="no-content-json"></div>
+					<div id="no-content-text">
+						<span>
+							Форма не активна.<br>
+							(ERROR: {{ error }})
+						</span>
+					</div>
+				</div>
+				<a class="btn no-content-text-btn" href="{{ url }}/" style="text-decoration: none;">Назад</a>
+				{% endif %}
+			</div>
+		</div>
+	</main>
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% block css %}
+{{ url_for('static', filename='css/main.css') }}
+{% endblock %}
+{% block body %}
+	<div class="main">
+		<div class="sidebar_stat">
+			<div class="logo_content_stat">
+				<div class="logo_stat">
+					<img class="logo_img_stat" src="{{ url_for('static', filename='img/logo.jpg')}}">
+					<div class="logo_name_stat">{{ header }}</div>
+				</div>
+				<i class="bx bx-menu" id="btn"></i>
+			</div>
+			<ul class="nav_list_stat">
+				{% for key, value in menu.items() %}
+				<li>
+					<a href="{{ value['href'] }}">
+						<i class="{{ value['img-icon'] }}"></i>
+						<span class="links_name_stat">{{ key }}</span>
+					</a>
+					<span class="tooltip_stat">{{ key }}</span>
+				</li>
+				{% endfor %}
+			</ul>
+			{% if admin_menu %}
+			<ul class="admin_nav_list_stat">
+				{% for key, value in admin_menu.items() %}
+				<li>
+					<a href="{{ value['href'] }}">
+						<i class="{{ value['img-icon'] }}"></i>
+						<span class="links_name_stat">{{ key }}</span>
+					</a>
+					<span class="tooltip_stat">{{ key }}</span>
+				</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			<div class="profile_content_stat">
+				<div class="profile_stat">
+					<div class="profile_details_stat">
+						<img src="{{ url_for('static', filename=user["img-user"])}}" alt="">
+						<div class="name_job_stat">
+							<div class="name_stat">{{ user["name"] }}</div>
+							<div class="job_stat" style="color: #{{ user["color"] }}">{{ user["role"] }}</div>
+						</div>
+					</div>
+					<i class="bx bx-log-out" id="log_out"></i>
+				</div>
+			</div>
+			<div class="footer_content_stat">
+				<div class="footer_stat">
+					<div class="footer_details_stat">
+						<div class="name_data_stat">
+							<div class="name_stat">Statistics.Judging</div>
+							<div class="date-copyright">Copyright | {{ date_snap }}</div>
+						</div>
+					</div>
+					<i id="date-copy">23`</i>
+				</div>
+			</div>
+		</div>
+		<div class="home_content">
+			<section>
+				<div class="container py-5">
+				  <div class="row">
+					<div class="col">
+					  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+						  <ol class="breadcrumb mb-0">
+							<li class="breadcrumb-item"><a href="">sjudge@ubuntu ~</a></li>
+							  <li class="breadcrumb-item"><a href="">root</a></li>
+							<li class="breadcrumb-item active" aria-current="page">новости $</li>
+						  </ol>
+					  </nav>
+					</div>
+				  </div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<!-- Blog entries-->
+						<div class="col-lg-8">
+							<!-- Featured blog post-->
+							<div class="card mb-4">
+								<a href="#!"></a>
+								<div class="card-body">
+									<div class="small text-muted">Апрель 20, 2023</div>
+									<h2 class="card-title">Statistics.Judge v1.0</h2>
+									<p class="card-text">Первая версия профессиональной тестирующей системы!</p>
+									<a class="btn btn-primary" href="#!">Подробнее →</a>
+								</div>
+							</div>
+							<!-- Nested row for non-featured blog posts-->
+							<div class="row">
+								<div class="col-lg-6">
+									<!-- Blog post-->
+									<div class="card mb-4">
+										<a href="#!"></a>
+										<div class="card-body">
+											<div class="small text-muted">January 1, 2023</div>
+											<h2 class="card-title h4">Release Statistics.Judge  v1.0</h2>
+											<p class="card-text">INFO NOT.</p>
+											<a class="btn btn-primary" href="#!">Подробнее →</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<!-- Blog post-->
+									<div class="card mb-4">
+										<a href="#!"></a>
+										<div class="card-body">
+											<div class="small text-muted">Апрель 20, 2023</div>
+											<h2 class="card-title h4">jjjj</h2>
+											<p class="card-text"></p>
+											<a class="btn btn-primary" href="#!">Подробнее →</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Pagination-->
+							<nav aria-label="Pagination">
+								<hr class="my-0" />
+								<ul class="pagination justify-content-center my-4">
+									<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+									<li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+									<li class="page-item"><a class="page-link" href="#!">2</a></li>
+									<li class="page-item"><a class="page-link" href="#!">3</a></li>
+									<li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+									<li class="page-item"><a class="page-link" href="#!">15</a></li>
+									<li class="page-item"><a class="page-link" href="#!">Older</a></li>
+								</ul>
+							</nav>
+						</div>
+						<!-- Side widgets-->
+						<div class="col-lg-4">
+							<!-- Categories widget-->
+							<div class="card mb-4">
+								<div class="card-header">Categories</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-sm-6">
+											<ul class="list-unstyled mb-0">
+												<li><a href="#!">API</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-6">
+											<ul class="list-unstyled mb-0">
+												<li><a href="#!">Чекеры</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Side widget-->
+							<div class="card mb-4">
+								<div class="card-header">Авторы постов</div>
+								<div class="card-body">
+									<div class="profile_stat">
+										<div class="profile_details_stat">
+											<img src="{{ url_for('static', filename=user["img-user"])}}" alt="">
+											<div class="name_job_stat">
+												<div class="name_stat">{{ user["name"] }}</div>
+												<span class="badge bg-primary">{{ user["role"] }}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+          	</section>
+		</div>
+	</div>
+	<script>
+		let btn = document.querySelector("#btn");
+		let sidebar = document.querySelector(".sidebar_stat");
+		let log_out = document.querySelector("#log_out");
+		btn.onclick = function (){
+			sidebar.classList.toggle("active");
+		}
+		log_out.onclick = function () {
+    		location.href = '{{ url }}/logout';
+		}
+	</script>
+
+{% endblock %}

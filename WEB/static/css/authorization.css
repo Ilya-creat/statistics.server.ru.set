@@ -8,6 +8,7 @@
 body,html {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -112,13 +113,14 @@ header #logo span {
     font-size : 0.8em;
   }
 }
+
 main {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 80%;
   width: 100%;
- }
+}
 
 .form-container {
   width: 500px;
@@ -133,6 +135,7 @@ main {
   margin: 0 0 32px 0;
   font-weight: bold;
  }
+
 
 .btn {
   padding: 10px 20px;
@@ -149,6 +152,11 @@ main {
  }
 
 .signin-text-input {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.signup-text-input {
   position: relative;
   margin-bottom: 32px;
 }
@@ -174,15 +182,54 @@ main {
 .btn:focus,
 .btn:hover{
   background-color: rgba(0, 113, 240, 0.7);
- }
+}
 
 .form-input:focus {
   border-bottom: 1px solid #1a73a8;
  }
 
-.form-input:focus~.label-input,
-.form-input:not(:focus):valid~.label-input  {
-         top: -18px;
-         font-size:12px;
-         color: #9e9e9e;
- }
+input[type="text"] {
+  font-size: 18px;
+}
+
+input[type="password"] {
+  font-size: 18px;
+}
+
+.invalid-feedback {
+  color: #f44336;
+  display: block;
+}
+
+.form-input-invalid {
+  width: 100%;
+  padding: 0 0 10px 0;
+  border: none;
+  border-bottom: 1px solid #f44336;
+  background-color: transparent;
+  outline: none;
+  transition: 0.3s;
+}
+
+#invalid-text {
+  font-size: 10pt;
+}
+
+#no-content-json {
+  width: 100px;
+}
+
+#no-content-text {
+  padding-left: 30px;
+  display: inline-block;
+}
+
+.no-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.no-content-text-btn {
+  float: right;
+}

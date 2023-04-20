@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% block css %}
+{{ url_for('static', filename='css/profile.css') }}
+{% endblock %}
+{% block body %}
+<div class="main">
+		<div class="sidebar_stat">
+			<div class="logo_content_stat">
+				<div class="logo_stat">
+					<img class="logo_img_stat" src="{{ url_for('static', filename='img/logo.jpg')}}">
+					<div class="logo_name_stat">{{ header }}</div>
+				</div>
+				<i class="bx bx-menu" id="btn"></i>
+			</div>
+			<ul class="nav_list_stat">
+				{% for key, value in menu.items() %}
+				<li>
+					<a href="{{ value['href'] }}">
+						<i class="{{ value['img-icon'] }}"></i>
+						<span class="links_name_stat">{{ key }}</span>
+					</a>
+					<span class="tooltip_stat">{{ key }}</span>
+				</li>
+				{% endfor %}
+			</ul>
+			{% if admin_menu %}
+			<ul class="admin_nav_list_stat">
+				{% for key, value in admin_menu.items() %}
+				<li>
+					<a href="{{ value['href'] }}">
+						<i class="{{ value['img-icon'] }}"></i>
+						<span class="links_name_stat">{{ key }}</span>
+					</a>
+					<span class="tooltip_stat">{{ key }}</span>
+				</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			<div class="profile_content_stat">
+				<div class="profile_stat">
+					<div class="profile_details_stat">
+						<img src="{{ url_for('static', filename=user["img-user"])}}" alt="">
+						<div class="name_job_stat">
+							<div class="name_stat">{{ user["name"] }}</div>
+							<div class="job_stat" style="color: #{{ user["color"] }}">{{ user["role"] }}</div>
+						</div>
+					</div>
+					<i class="bx bx-log-out" id="log_out"></i>
+				</div>
+			</div>
+			<div class="footer_content_stat">
+				<div class="footer_stat">
+					<div class="footer_details_stat">
+						<div class="name_data_stat">
+							<div class="name_stat">Statistics.Judging</div>
+							<div class="date-copyright">Copyright | {{ date_snap }}</div>
+						</div>
+					</div>
+					<i id="date-copy">23`</i>
+				</div>
+			</div>
+		</div>
+		{% if user_id %}
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Обновление данных</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+			  </div>
+			  <div class="modal-body">
+				<form action="/profile/upload" method="post" enctype="multipart/form-data">
+					{{ profile_form.hidden_tag() }}
+					{% for field in profile_form if field.name not in ['csrf_token', 'submit'] -%}
+						{% if field.errors %}
+						<div class="mb-3">
+							<label for="{{ field.id }}" class="col-form-label" style="color:#ff0000">{{ field.label.text }} + Ошибка формы</label>
+							  {{ field(class_='form-control') }}
+						  </div>
+						{% else %}
+						  <div class="mb-3">
+							<label for="{{ field.id }}" class="col-form-label">{{ field.label.text }}</label>
+							  {{ field(class_='form-control') }}
+						  </div>
+						{% endif %}
+					{% endfor %}
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+				  		{{ profile_form.submit(class="btn btn-primary") }}
+			  		</div>
+				</form>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="home_content">
+          <section>
+            <div class="container py-5">
+              <div class="row">
+                <div class="col">
+                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+					  <ol class="breadcrumb mb-0">
+						<li class="breadcrumb-item"><a href="">sjudge@ubuntu ~</a></li>
+						  <li class="breadcrumb-item"><a href="">root</a></li>
+						<li class="breadcrumb-item active" aria-current="page">профиль $</li>
+					  </ol>
+                  </nav>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="card mb-4">
+                    <div class="card-body text-center">
+                      <img src="{{ url_for('static', filename=user["img-user"])}}" alt="avatar" style="max-width: 250px; max-height: 250px">
+                      <h5 class="my-3">{{ user["name"] }}</h5>
+                        <div class="tag">
+                            <div class="tag-info">
+                                <span style="color:#{{ user["color"] }}">{{ user["role"] }}</span>
+                            </div>
+                        </div>
+                      <div class="d-flex justify-content-center mb-2">
+						  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{ user["login"] }}">Редактировать</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Должность</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="post mb-0" style="color:#{{ user["color"] }}">{{ user["role"] }}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p class="mb-0">Зарегистрирован</p>
+                        </div>
+                        <div class="col-sm-9">
+                          <p class="text-muted mb-0">{{ user["register"] }}</p>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+		</div>
+		{% else %}
+		<div class="home_content">
+			<div class="invalid-profile">
+				<div class="form-container" id="container">
+					<div class="s-container">
+						<div class="no-content">
+							<div id="no-content-json"></div>
+							<div id="no-content-text">
+								<span>
+									Нет прав.<br>
+									(ERROR: {{ error }})
+								</span>
+							</div>
+						</div>
+						<a class="btn no-content-text-btn" href="{{ url }}/" style="text-decoration: none;">Назад</a>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+</div>
+	<script>
+		let btn = document.querySelector("#btn");
+		let sidebar = document.querySelector(".sidebar_stat");
+		let log_out = document.querySelector("#log_out");
+		btn.onclick = function (){
+			sidebar.classList.toggle("active");
+		}
+		log_out.onclick = function () {
+    		location.href = '{{ url }}/logout';
+		}
+	</script>
+	<script>
+		var exampleModal = document.getElementById('exampleModal')
+		exampleModal.addEventListener('show.bs.modal', function (event) {
+		  // Кнопка, запускающая модальное окно
+		  var button = event.relatedTarget
+		  // Извлечь информацию из атрибутов data-bs- *
+		  var recipient = button.getAttribute('data-bs-whatever')
+		  // При необходимости вы можете инициировать запрос AJAX здесь
+		  // а затем выполните обновление в обратном вызове.
+		  //
+		  // Обновите содержимое модального окна.
+		  var modalTitle = exampleModal.querySelector('.modal-title')
+		  var modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+		  modalTitle.textContent = 'Обновление данных для ' + recipient
+		  modalBodyInput.value = recipient
+		})
+	</script>
+{% endblock %}
