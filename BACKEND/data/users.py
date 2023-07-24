@@ -16,6 +16,6 @@ class User(SqlAlchemyBase):
     timestamp = sqlalchemy.Column(sqlalchemy.DateTime,
                                   default=datetime.datetime.now)
     path_image = sqlalchemy.Column(sqlalchemy.String, default="user/img/default.jpg")
-    status = sqlalchemy.Column(sqlalchemy.Integer, default=1)
     activate = sqlalchemy.Column(sqlalchemy.Integer,
                                  default=1)
+    permission = sqlalchemy.Column(sqlalchemy.String, default="default-group.default")

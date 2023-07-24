@@ -7,18 +7,24 @@ from shlex import join
 
 import requests
 from PIL import Image, ImageSequence
+from pathlib import Path
 
 from BACKEND.data import db_session
 from BACKEND.data.posts import Posts
 from BACKEND.data.tokens_forgot import TokensForgot
 from BACKEND.data.users import User
-from BACKEND.data.personal import Personal
+from BACKEND.models.config import VPS_PATH
 from BACKEND.models.validate import generation_token
 import os
 
 
 class DATABASE:
     def __init__(self, db):
+        if type(db) != sqlite3.Connection:
+            self.__db = sqlite3.Connection(db, check_same_thread=False)
+
+            self.__cur = self.__db.cursor()
+
         self.db_session = db_session
         self.db_session.global_init(db)
 
@@ -130,7 +136,7 @@ class DATABASE:
             print("Ошибка создания данных БД (create):\n" + str(e))
             return None
 
-    def get_testing_result(self, _id, tasks, contest):
+    def get_testing_result(self, _id, tasks, contest, local_url):
         try:
             self.__cur.execute(f"SELECT * FROM code_task WHERE user_id = '{_id}' and contest = '{contest}'")
             ans = self.__cur.fetchall()
@@ -142,7 +148,7 @@ class DATABASE:
                     for j in i:
                         ok.append(j)
                     config = configparser.ConfigParser()
-                    config.read(f'instance/task/{self.task_converter(ok[2])}/config.ini', encoding="utf-8")  # чтение
+                    config.read(f'{local_url}/BACKEND/instance/task/{self.task_converter(ok[2])}/config.ini', encoding="utf-8")  # чтение
                     ok[2] = [ok[2], config['Config']['name']]
                     result.append(ok)
             return result
@@ -150,7 +156,7 @@ class DATABASE:
             print("Ошибка получения данных из БД (get_testing_result):\n" + str(e))
             return None
 
-    def get_testing_result_full(self, tasks, contest):
+    def get_testing_result_full(self, tasks, contest, local_url):
         try:
             self.__cur.execute(f"SELECT * FROM code_task WHERE contest = '{contest}'")
             ans = self.__cur.fetchall()
@@ -162,7 +168,7 @@ class DATABASE:
                     for j in i:
                         ok.append(j)
                     config = configparser.ConfigParser()
-                    config.read(f'instance/task/{self.task_converter(ok[2])}/config.ini', encoding="utf-8")  # чтение
+                    config.read(f'{local_url}/BACKEND/instance/task/{self.task_converter(ok[2])}/config.ini', encoding="utf-8")  # чтение
                     ok[2] = [ok[2], config['Config']['name']]
                     result.append(ok)
             return result
@@ -229,22 +235,13 @@ class DATABASE:
             print("Ошибка получения данных из БД (get_user_by_token_forgot):\n" + str(e))
             return False
 
-    def get_status_info(self, status_id):
-        try:
-            db_sess = self.db_session.create_session()
-            result = db_sess.query(Personal).filter(Personal.id == status_id).first()
-            return result.post
-        except Exception as e:
-            print("Ошибка получения данных из БД (get_status_info):\n" + str(e))
-            return False
-
     def upload_data(self, user_id, name=None, photo=None):
         try:
             # print(user_id, photo)
             db_sess = self.db_session.create_session()
             user = db_sess.query(User).filter(User.id == user_id).first()
             if photo:
-                only_files = [f for f in listdir(f"{os.getcwd()}/WEB/static/user/img")]
+                only_files = [f for f in listdir(f"{os.path.abspath(os.curdir)}/WEB/static/user/img")]
                 for i in range(len(only_files)):
                     only_files[i] = only_files[i].split('.')[0]
                 import random
@@ -260,13 +257,12 @@ class DATABASE:
                 picture = Image.open(photo)
                 if photo.filename.split('.')[1] == 'gif':
                     frames = [frame.copy() for frame in ImageSequence.Iterator(picture)]
-                    picture.save(open(f"{os.getcwd()}/WEB/static/user/img/{res}.{photo.filename.split('.')[1]}", "wb"),
+                    picture.save(open(f"{VPS_PATH}/WEB/static/user/img/{res}.{photo.filename.split('.')[1]}", "wb"),
                                  save_all=True, append_images=frames, duration=100, loop=0)
                 else:
-                    picture.save(f"{os.getcwd()}/WEB/static/user/img/{res}.{photo.filename.split('.')[1]}")
+                    picture.save(f"{VPS_PATH}/WEB/static/user/img/{res}.{photo.filename.split('.')[1]}")
                 if user.path_image.split('/')[-1] != 'default.jpg':
-                    os.remove(f"{os.getcwd()}/WEB/static/{user.path_image}")
-                # print(f"user/img/{res}.{photo.filename.split('.')[1]}")
+                    os.remove(f"{VPS_PATH}/WEB/static/{user.path_image}")
                 user.path_image = f"user/img/{res}.{photo.filename.split('.')[1]}"
             if name:
                 user.name = name
@@ -275,15 +271,6 @@ class DATABASE:
             return True
         except Exception as e:
             print("Ошибка обновления данных в БД (upload_data):\n" + str(e))
-            return False
-
-    def get_color(self, status_id):
-        try:
-            db_sess = self.db_session.create_session()
-            result = db_sess.query(Personal).filter(Personal.id == status_id).first()
-            return result.color
-        except Exception as e:
-            print("Ошибка получения данных из БД (get_color):\n" + str(e))
             return False
 
     def get_posts(self):

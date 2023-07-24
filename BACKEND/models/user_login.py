@@ -2,6 +2,7 @@ import datetime
 
 from flask_login import UserMixin
 from flask import url_for
+from BACKEND.models.permissions import Permissions
 
 
 class UserLogin(UserMixin):
@@ -22,8 +23,8 @@ class UserLogin(UserMixin):
     def get_email(self):
         return str(self.__user.email)
 
-    def get_status(self):
-        return self.__user.status
+    def get_permissions(self):
+        return str(self.__user.permission)
 
     def get_name(self):
         return str(self.__user.name)

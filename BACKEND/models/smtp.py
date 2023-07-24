@@ -23,7 +23,7 @@ class SMTP:
     def send_email_for_password(self, url, token):
         try:
             self.msg['Subject'] = "Восстановление данных"
-            with open(f"{os.getcwd()}/BACKEND/html/forgot_password.html", encoding="UTF-8") as f:
+            with open(f"{os.path.abspath(os.curdir)}/BACKEND/html/forgot_password.html", encoding="UTF-8") as f:
                 email_content = f.read()
             email_content = email_content.replace("SESSION_TOKEN", token).replace("URL_FOR_SERVER", url)
             email_content = MIMEText(email_content, "html", "utf-8")

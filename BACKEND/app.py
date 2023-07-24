@@ -19,16 +19,15 @@ from BACKEND.models.taskDataBase import TaskDataBase
 from BACKEND.models.user_login import UserLogin
 from BACKEND.models.testing import Testing, ErrorTesting
 from BACKEND.models.smtp import SMTP
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 from BACKEND.models.validate import check_image, check_user_status
+from BACKEND.models.permissions import Permissions
 import psutil
 import platform
-from BACKEND.models.monitors import config as cfg
-from BACKEND.models.monitors import disk as tm
-from BACKEND.models.monitors import monitor_models
 
-load_dotenv()
+load_dotenv('/var/www/statistics_judge/statistics_judge/.env')
+# load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 app = Flask(__name__, subdomain_matching=True,
@@ -36,6 +35,7 @@ app = Flask(__name__, subdomain_matching=True,
             template_folder='../WEB/templates')
 app.config.from_object(__name__)  # load configuration
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'dbase.db')))
+app.config["SECRET_KEY"] = SECRET_KEY
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(app.root_path,
                            "../WEB/static")
@@ -47,13 +47,20 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message = "Авторизуйтесь для просмотра данной странички"
 login_manager.login_message_category = "error"
-url_locale = f"{os.getcwd()}"  # "/var/www/www-root/data/www/server.statistics-online.ru"
+url_locale = os.getcwd()  # "/var/www/statistics_judge/statistics_judge"  # "/var/www/statistics_judge/statistics_judge"
 testing = Testing()
+permissions = Permissions()
 
 HEADER = "Statistics.Judging"
 DATE_SNAP = "2023"
-url = "http://127.0.0.1:5000"  # statistics-judging.ru
-active_since = datetime.datetime.fromtimestamp(psutil.boot_time())
+url = "http://127.0.0.1:5001"
+
+menu = {
+    "Главная": {
+        "img-icon": "bx bx-grid-alt",
+        "href": f"{url}/"
+    }
+}
 
 default_menu = {
     "Главная": {
@@ -124,57 +131,73 @@ task = None
 
 @app.route('/', methods=["POST", "GET"])
 def main():
-    if current_user.is_authenticated and current_user.get_status() in [1, 2]:
-        return render_template('main.html',
-                               header=HEADER,
-                               date_snap=DATE_SNAP,
-                               url=url,
-                               menu=default_menu,
-                               admin_menu={},
-                               user={
-                                   "img-user": current_user.get_image(),
-                                   "name": current_user.get_name(),
-                                   "role": dbase.get_status_info(current_user.get_status()),
-                                   "role_id": current_user.get_status(),
-                                   "profile_id": current_user.get_id(),
-                                   "register": current_user.get_register(),
-                                   "color": dbase.get_color(current_user.get_status())
-                               }
-                               )
-    if current_user.is_authenticated and current_user.get_status() == 3:
-        return render_template('main.html',
-                               header=HEADER,
-                               date_snap=DATE_SNAP,
-                               url=url,
-                               menu=default_menu,
-                               admin_menu=moder_menu,
-                               user={
-                                   "img-user": current_user.get_image(),
-                                   "name": current_user.get_name(),
-                                   "role": dbase.get_status_info(current_user.get_status()),
-                                   "role_id": current_user.get_status(),
-                                   "profile_id": current_user.get_id(),
-                                   "register": current_user.get_register(),
-                                   "color": dbase.get_color(current_user.get_status())
-                               }
-                               )
-    if current_user.is_authenticated and current_user.get_status() in [4, 5, 6, 7]:
-        return render_template('main.html',
-                               header=HEADER,
-                               date_snap=DATE_SNAP,
-                               url=url,
-                               menu=default_menu,
-                               admin_menu=admin_menu,
-                               user={
-                                   "img-user": current_user.get_image(),
-                                   "name": current_user.get_name(),
-                                   "role": dbase.get_status_info(current_user.get_status()),
-                                   "role_id": current_user.get_status(),
-                                   "profile_id": current_user.get_id(),
-                                   "register": current_user.get_register(),
-                                   "color": dbase.get_color(current_user.get_status())
-                               }
-                               )
+    if current_user.is_authenticated:
+        user_permissions = permissions.get_permission(current_user.get_permissions())
+        if permissions.check_permission(user_permissions, 'sjudge.news.read', 'sjudge.admin.menu'):
+            return render_template('main.html',
+                                   header=HEADER,
+                                   date_snap=DATE_SNAP,
+                                   url=url,
+                                   menu=default_menu,
+                                   admin_menu=admin_menu,
+                                   user={
+                                       "img-user": current_user.get_image(),
+                                       "name": current_user.get_name(),
+                                       "role": user_permissions["name-ru"],
+                                       "profile_id": current_user.get_id(),
+                                       "register": current_user.get_register(),
+                                       "color": user_permissions["color"]
+                                   }
+                                   )
+
+        if permissions.check_permission(user_permissions, 'sjudge.news.read', 'sjudge.moder.menu'):
+            return render_template('main.html',
+                                   header=HEADER,
+                                   date_snap=DATE_SNAP,
+                                   url=url,
+                                   menu=default_menu,
+                                   admin_menu=moder_menu,
+                                   user={
+                                       "img-user": current_user.get_image(),
+                                       "name": current_user.get_name(),
+                                       "role": user_permissions["name-ru"],
+                                       "profile_id": current_user.get_id(),
+                                       "register": current_user.get_register(),
+                                       "color": user_permissions["color"]
+                                   }
+                                   )
+        if permissions.check_permission(user_permissions, 'sjudge.news.read', 'sjudge.author.menu'):
+            return render_template('main.html',
+                                   header=HEADER,
+                                   date_snap=DATE_SNAP,
+                                   url=url,
+                                   menu=default_menu,
+                                   admin_menu={},
+                                   user={
+                                       "img-user": current_user.get_image(),
+                                       "name": current_user.get_name(),
+                                       "role": user_permissions["name-ru"],
+                                       "profile_id": current_user.get_id(),
+                                       "register": current_user.get_register(),
+                                       "color": user_permissions["color"]
+                                   }
+                                   )
+        if permissions.check_permission(user_permissions, 'sjudge.news.read'):
+            return render_template('main.html',
+                                   header=HEADER,
+                                   date_snap=DATE_SNAP,
+                                   url=url,
+                                   menu=menu,
+                                   admin_menu={},
+                                   user={
+                                       "img-user": current_user.get_image(),
+                                       "name": current_user.get_name(),
+                                       "role": user_permissions["name-ru"],
+                                       "profile_id": current_user.get_id(),
+                                       "register": current_user.get_register(),
+                                       "color": user_permissions["color"]
+                                   }
+                                   )
     else:
         form_log = LoginForm()
         if form_log.validate_on_submit():
@@ -460,6 +483,10 @@ def upload():
         return redirect(f'/profile/{current_user.get_id()}')
 
 
+
+
+
+
 @app.route('/admins/create-post')
 def create_post():
     if current_user.get_id() < 4:
@@ -482,34 +509,6 @@ def create_post():
                            )
 
 
-@app.route('/admins/status-system')
-def status_system():
-    check_user_status(current_user)
-    return render_template('admins/monitors.html',
-                           header=HEADER,
-                           date_snap=DATE_SNAP,
-                           url=url,
-                           menu=default_menu,
-                           admin_menu=admin_menu,
-                           user={
-                               "img-user": current_user.get_image(),
-                               "name": current_user.get_name(),
-                               "role": dbase.get_status_info(current_user.get_status()),
-                               "role_id": current_user.get_status(),
-                               "profile_id": current_user.get_id(),
-                               "register": current_user.get_register(),
-                               "color": dbase.get_color(current_user.get_status())
-                           },
-                           script_version=cfg.version,
-                           active_since=active_since,
-                           days_active=(datetime.datetime.now() - active_since).days,
-                           system=platform.system(),
-                           release=platform.release(),
-                           version=platform.version(),
-                           blocks=monitor_models.get_blocks()
-                           )
-
-
 @app.route('/logout')
 @login_required
 def logout():
@@ -526,7 +525,9 @@ def apiReturn(funct):
         for i in arg:
             rearg = dbase.task_converter(i)
             config = configparser.ConfigParser()  # .ini файлы
-            config.read(f'{url_locale}/instance/task/{rearg}/config.ini', encoding="utf-8")  # чтение
+            # print(url_locale)
+            config.read(f'{url_locale}/BACKEND/instance/task/{rearg}/config.ini', encoding="utf-8")  # чтение
+            # print(*config)
             contest_name = config['Config']['name']
             json_ans[i] = contest_name
         return make_response(jsonify(json_ans)), 200
@@ -534,36 +535,38 @@ def apiReturn(funct):
     if funct == "get_task_name":
         config = configparser.ConfigParser()
         rearg = request.args.get('rearg')
-        config.read(f'{url_locale}/instance/task/{rearg}/config.ini', encoding="utf-8")  # чтение
+        config.read(f'{url_locale}/BACKEND/instance/task/{rearg}/config.ini', encoding="utf-8")  # чтение
         return config['Config']['name'], 200
 
     if funct == "get_task":
         arg = request.args.get('id')
         rearg = dbase.task_converter(arg)
         config = configparser.ConfigParser()  # .ini файлы
-        config.read(f'{url_locale}/instance/task/{rearg}/config.ini', encoding="utf-8")  # чтение
+        config.read(f'{url_locale}/BACKEND/instance/task/{rearg}/config.ini', encoding="utf-8")  # чтение
         contest_name = config['Config']['name']
         contest_time_limit = config['Config']['time_limit']
         contest_memory_limit = config['Config']['memory_limit']
         contest_input = config['Config']['input']
         contest_console = config['Config']['output']
-        config.read(f'{url_locale}/instance/task/{rearg}/tests/tests.ini', encoding="utf-8")  # чтение
+        config.read(f'{url_locale}/BACKEND/instance/task/{rearg}/tests/tests.ini', encoding="utf-8")  # чтение
         ex = literal_eval(config['Examples']['ex'])
-        with open(f'{url_locale}/instance/task/{rearg}/statments/legend.TEX', 'r', encoding="utf-8") as myfile:
+        with open(f'{url_locale}/BACKEND/instance/task/{rearg}/statments/legend.TEX', 'r', encoding="utf-8") as myfile:
             data = myfile.read()
-        with open(f'{url_locale}/instance/task/{rearg}/statments/input.TEX', 'r', encoding="utf-8") as myfile:
+        with open(f'{url_locale}/BACKEND/instance/task/{rearg}/statments/input.TEX', 'r', encoding="utf-8") as myfile:
             dt_input = myfile.read()
-        with open(f'{url_locale}/instance/task/{rearg}/statments/output.TEX', 'r', encoding="utf-8") as myfile:
+        with open(f'{url_locale}/BACKEND/instance/task/{rearg}/statments/output.TEX', 'r', encoding="utf-8") as myfile:
             dt_output = myfile.read()
-        with open(f'{url_locale}/instance/task/{rearg}/statments/score.TEX', 'r', encoding="utf-8") as myfile:
+        with open(f'{url_locale}/BACKEND/instance/task/{rearg}/statments/score.TEX', 'r', encoding="utf-8") as myfile:
             dt_score = myfile.read()
-        with open(f'{url_locale}/instance/task/{rearg}/statments/notes.TEX', 'r', encoding="utf-8") as myfile:
+        with open(f'{url_locale}/BACKEND/instance/task/{rearg}/statments/notes.TEX', 'r', encoding="utf-8") as myfile:
             dt_notes = myfile.read()
         _dict_ = {}
         for i, j in ex.items():
-            with open(f'{url_locale}/instance/task/{rearg}/tests/input/{i}.txt', 'r', encoding="utf-8") as myfile:
+            with open(f'{url_locale}/BACKEND/instance/task/{rearg}/tests/input/{i}.txt', 'r',
+                      encoding="utf-8") as myfile:
                 exinp = myfile.read()
-            with open(f'{url_locale}/instance/task/{rearg}/tests/output/{j}.txt', 'r', encoding="utf-8") as myfile:
+            with open(f'{url_locale}/BACKEND/instance/task/{rearg}/tests/output/{j}.txt', 'r',
+                      encoding="utf-8") as myfile:
                 exout = myfile.read()
             for key in exinp:
                 key.replace('\n', '<br>')
@@ -586,17 +589,19 @@ def apiReturn(funct):
         )), 200
     if funct == 'code':
         args_code = request.get_json()
+        print(args_code)
         db = dbase.create(args_code['contest_id'], args_code['user_id'], args_code['_id'])
         compiler = testing.compiler(db)
         dbase.compile_lang(db, compiler[args_code["lang"]][3])
-        new_file = open(f'{url_locale}/instance/post_files/{db}.{compiler[args_code["lang"]][1]}', 'w+', newline='',
+        new_file = open(f'{url_locale}/BACKEND/instance/post_files/{db}.{compiler[args_code["lang"]][1]}', 'w+',
+                        newline='',
                         encoding="utf-8")
         new_file.write(args_code['code'])
         new_file.close()
         rearg = dbase.task_converter(args_code['_id'])
         # _GLOBAL_DECISIONS_DEQUEUE_.append([args_code, db, rearg])
         try:
-            threading.Thread(target=Testing().testing_module, args=(args_code, db, rearg)).start()
+            threading.Thread(target=Testing().testing_module, args=(args_code, db, rearg, url_locale)).start()
         except ErrorTesting:
             with sqlite3.connect("dbase.db") as con:
                 cur = con.cursor()
@@ -606,11 +611,11 @@ def apiReturn(funct):
     if funct == 'testing_info':
         if request.args.get('my') == 'true':
             args = request.get_json()
-            ans = dbase.get_testing_result(args['user_id'], args['tasks'], args['contest'])
+            ans = dbase.get_testing_result(args['user_id'], args['tasks'], args['contest'], url_locale)
             return make_response(jsonify(ans)), 200
         else:
             args = request.get_json()
-            ans = dbase.get_testing_result_full(args['tasks'], args['contest'])
+            ans = dbase.get_testing_result_full(args['tasks'], args['contest'], url_locale)
             return make_response(jsonify(ans)), 200
     return {}, 200
 
@@ -636,5 +641,4 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    tm.start()
     app.run(host='127.0.0.1', port=5000)

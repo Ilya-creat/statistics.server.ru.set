@@ -156,12 +156,13 @@ body,html {
     align-items: center;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 .sidebar_stat.active .logo_content_stat .logo_stat {
     opacity: 1;
     pointer-events: none;
+    transition: all 0.8s ease;
 }
 .logo_content_stat .logo_stat i {
     font-size: 28px;
@@ -201,7 +202,6 @@ body,html {
     position: relative;
     height: 50px;
     width: 100%;
-    margin: 0 5px;
     list-style: none;
     line-height: 50px;
 }
@@ -262,7 +262,7 @@ body,html {
 .sidebar_stat.active .links_name_stat {
     opacity: 1;
     pointer-events: auto;
-    transition: all 0.2s ease;
+    transition: all 0.8s ease;
 }
 
 .sidebar_stat .profile_content_stat {
@@ -295,6 +295,7 @@ body,html {
 .sidebar_stat.active .profile_stat .profile_details_stat {
     opacity: 1;
     pointer-events: auto;
+    transition: all 0.8s ease;
 }
 .profile_stat .profile_details_stat img {
     height: 45px;
@@ -383,6 +384,7 @@ body,html {
 .sidebar_stat.active .footer_stat .footer_details_stat {
     opacity: 1;
     pointer-events: auto;
+    transition: all 0.8s ease;
 }
 
 .footer_stat .footer_details_stat .name_data_stat{
