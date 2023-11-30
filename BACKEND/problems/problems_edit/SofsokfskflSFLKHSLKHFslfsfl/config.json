@@ -1,0 +1,109 @@
+{
+  "config": {
+    "name": "A+B",
+    "resources": {
+      "stdin": "stdin",
+      "stdout": "stdout",
+      "time-limit-exceed": 1000,
+      "memory-limit-exceed": 256
+    },
+    "scripts": {
+      "validator": "valid.cpp",
+      "checker": "checker.cpp",
+      "gen": ""
+    },
+    "tags": [],
+    "examples": ["1", "2"],
+    "admin-verify-out": ["1", "2"],
+    "testing": {
+      "format": "each-test",
+      "groups": {
+        "1": {
+          "name": "examples",
+          "format": "each-test",
+          "limitation": "full",
+          "tests": {
+            "1": {
+              "points": 0
+            },
+            "2": {
+              "points": 0
+            }
+          },
+          "points": 0,
+          "parents": []
+        },
+        "2": {
+          "name": "group 1",
+          "format": "each-test",
+          "limitation": "full",
+          "tests": {
+            "3": {
+              "points": 5
+            },
+            "4": {
+              "points": 5
+            }
+          },
+          "points": 0,
+          "parents": []
+        },
+        "3": {
+          "name": "group 2",
+          "format": "group",
+          "limitation": "first-mistake",
+          "tests": {
+            "5": {
+              "points": 0
+            },
+            "6": {
+              "points": 0
+            }
+          },
+          "points": 50,
+          "parents": ["1", "2"]
+        },
+        "4": {
+          "name": "group 3",
+          "format": "group",
+          "limitation": "completed",
+          "tests": {
+            "5": {
+              "points": 0
+            },
+            "6": {
+              "points": 0
+            }
+          },
+          "points": 40,
+          "parents": ["1", "2"]
+        }
+      },
+      "group-testing": ["1", "2", "3", "4"],
+      "each-test": {
+        "limitation": "first-mistake",
+        "tests": {
+          "1": {
+            "points": 0
+          },
+          "2": {
+            "points": 0
+          },
+          "3": {
+            "points": 25
+          },
+          "4": {
+            "points": 25
+          },
+          "5": {
+            "points": 25
+          },
+          "6": {
+            "points": 25
+          }
+        }
+      },
+      "each-test-testing": ["1", "2", "3", "4", "5", "6"]
+    }
+  }
+}

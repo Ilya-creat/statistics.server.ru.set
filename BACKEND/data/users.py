@@ -19,3 +19,4 @@ class User(SqlAlchemyBase):
     activate = sqlalchemy.Column(sqlalchemy.Integer,
                                  default=1)
     permission = sqlalchemy.Column(sqlalchemy.String, default="default-group.default")
+    lang = sqlalchemy.Column(sqlalchemy.String, default="en")

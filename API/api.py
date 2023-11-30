@@ -13,6 +13,8 @@ api = Api(application)
 cors = CORS(application)
 application.config['CORS_HEADERS'] = 'Content-Type'
 application.config['JWT_SECRET_KEY'] = 'A3ACA9958A67A695BADF2F5A2BD5C'
+application.config['SECRET_KEY'] = 'DFPWE239KF92K2392LPO9DS2I4KD3'
+
 jwt = JWTManager(application)
 application.config['JWT_BLACKLIST_ENABLED'] = True
 application.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
@@ -20,6 +22,7 @@ application.permanent_session_lifetime = timedelta(days=365)
 
 # API 1.0
 api.add_resource(API.resources.Info, '/v1.0/')
+api.add_resource(API.resources.SettingsProblem, '/v1.0/settings-problems')
 
 
 @jwt.token_in_blocklist_loader

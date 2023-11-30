@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block css %}
+{{ url_for('static', filename='css/problems.css') }}
+{% endblock %}
+{% block body %}
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+	 aria-labelledby="staticBackdropLabel" aria-hidden="true" xmlns="http://www.w3.org/1999/html">
+				  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					  <form action="/problems" method="post" enctype="multipart/form-data">
+						  {{ problems_create_form.hidden_tag() }}
+						  <div class="modal-content">
+							  <div class="modal-header">
+								<h5 class="modal-title" id="staticBackdropLabel">Создание задачи</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+							  </div>
+					  	<div class="modal-body">
+							  <div class="type-select sop">
+								  <span>	{{ problems_create_form.section.label() }} </span>
+								  {{ problems_create_form.section(class="form-select section", onchange="showDiv(this.value)") }}
+							  </div>
+							  <div class="prob sport-programming">
+								  <span>	{{ problems_create_form.sport_programming.label() }} </span>
+								{{ problems_create_form.sport_programming(class="form-select sport_programming") }}
+							  </div>
+							  <div class="prob artificial-intelligence">
+								  <span>	{{ problems_create_form.artificial_intelligence.label() }} </span>
+								{{ problems_create_form.artificial_intelligence(class="form-select artificial_intelligence") }}
+							  </div>
+							  <div class="prob machine-learn">
+								  <span>	{{ problems_create_form.machine_learn.label() }} </span>
+								{{ problems_create_form.machine_learn(class="form-select machine_learn") }}
+							  </div>
+							  <div class="prob test">
+								  <span>	{{ problems_create_form.test.label() }} </span>
+								{{ problems_create_form.test(class="form-select test") }}
+							  </div>
+						  </div>
+							<div class="modal-footer sopr">
+							  {{ problems_create_form.submit(class="btn btn-primary") }}
+						  </div>
+						</div>
+					  </form>
+				  </div>
+				</div>
+
+<div class="home_content" xmlns="http://www.w3.org/1999/html">
+			<section>
+				<div class="container py-5">
+				  <div class="row">
+					<div class="col">
+					  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+						  <ol class="breadcrumb mb-0">
+							<li class="breadcrumb-item"><a href="">sjudge@ubuntu: ~</a></li>
+							  <li class="breadcrumb-item"><a href="">root</a></li>
+							<li class="breadcrumb-item active" aria-current="page">problems $</li>
+						  </ol>
+					  </nav>
+					</div>
+				  </div>
+				</div>
+
+				<div class="container radio">
+					<div class="radio-button">
+						<input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" checked>
+						<label class="btn btn-outline-secondary" for="success-outlined">Мои задачи</label>
+
+						<input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
+						<label class="btn btn-outline-secondary disabled" for="danger-outlined">На верификации <span class="badge bg-primary">Скоро</span></label>
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="float: right">
+						  Создать задачу
+						</button>
+					</div>
+				</div>
+				<div class="container problems">
+
+					<table class="table table-bordered text-center align-middle">
+						<thead>
+							<tr>
+							  <th scope="col">ID</th>
+							  <th scope="col">Название</th>
+							  <th scope="col">Версия</th>
+							  <th scope="col">Операция</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							{% for item in users_problems %}
+							<tr>
+							  <td>{{item[0].id}}</td>
+								{% if not item[2] %}
+							  <td>
+								  Новая задача <br/>
+								  {% if not item[1] %}
+								  Тег: <span class="badge bg-secondary">problem-{{ item[0].url }}</span>
+								  {% else %}
+								  Тег: <span class="badge bg-secondary">{{ item[1] }}</span>
+								  {% endif %}
+							  </td>
+								{% else %}
+								<td>
+								    {{item[2]}} <br/>
+									{% if not item[1] %}
+								    Тег: <span class="badge bg-secondary">problem-{{ item[0].url }}</span>
+								    {% else %}
+								    Тег: <span class="badge bg-secondary">{{ item[1] }}</span>
+								    {% endif %}
+								</td>
+								{% endif %}
+							  <td>{{item[0].version}}</td>
+							  <td>
+								  <a class="btn btn-primary" href="{{url}}/problems/edit/{{ item[0].url }}/#settings">Перейти -></a>
+								  <a class="btn btn-danger" href="{{url}}/problems/delete?url={{ item[0].url }}">Удалить</a>
+							  </td>
+							</tr>
+						  	{% endfor %}
+						  </tbody>
+                    </table>
+				</div>
+          	</section>
+		</div>
+	<script>
+		$(".section").prop("selectedIndex", -1);
+		function showDiv(selector) {
+			  const prevBlockEl = document.querySelector('.prob.active'),
+					currBlockEl = document.querySelector(selector);
+			  if (!currBlockEl || prevBlockEl === currBlockEl){
+				  return;
+			  }
+			  prevBlockEl && prevBlockEl.classList.remove('active');
+			  currBlockEl.classList.add('active');
+			}
+	</script>
+
+{% endblock %}

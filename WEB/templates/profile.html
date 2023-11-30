@@ -53,7 +53,7 @@
 					<div class="footer_details_stat">
 						<div class="name_data_stat">
 							<div class="name_stat">Statistics.Judging</div>
-							<div class="date-copyright">Copyright | {{ date_snap }}</div>
+							<div class="date-copyright">Copyright | {{ date_release }}</div>
 						</div>
 					</div>
 					<i id="date-copy">23`</i>
@@ -173,17 +173,6 @@
 			{% endif %}
 		</div>
 </div>
-	<script>
-		let btn = document.querySelector("#btn");
-		let sidebar = document.querySelector(".sidebar_stat");
-		let log_out = document.querySelector("#log_out");
-		btn.onclick = function (){
-			sidebar.classList.toggle("active");
-		}
-		log_out.onclick = function () {
-    		location.href = '{{ url }}/logout';
-		}
-	</script>
 	<script>
 		var exampleModal = document.getElementById('exampleModal')
 		exampleModal.addEventListener('show.bs.modal', function (event) {

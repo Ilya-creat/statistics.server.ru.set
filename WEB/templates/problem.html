@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block css %}
+{{ url_for('static', filename='css/problem.css') }}
+{% endblock %}
+{% block body %}
+<div class="home_content">
+			<section>
+				<div class="container py-5">
+				  <div class="row">
+					<div class="col">
+					  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+						  <ol class="breadcrumb mb-0">
+							<li class="breadcrumb-item"><a href="">sjudge@ubuntu: ~</a></li>
+							  <li class="breadcrumb-item"><a href="">root</a></li>
+                              <li class="breadcrumb-item"><a href="">problems</a></li>
+							<li class="breadcrumb-item active" aria-current="page">{{ problem_url }}</li>
+						  </ol>
+					  </nav>
+					</div>
+				  </div>
+				</div>
+
+				<div class="container radio">
+					<div class="radio-button">
+						<input type="radio" class="btn-check" name="options-outlined" id="settings" autocomplete="off"
+						onclick="atLeastOneRadio()">
+						<label class="btn btn-outline-secondary" for="settings">Настройки</label>
+						<input onclick="atLeastOneRadio()" type="radio" class="btn-check" name="options-outlined" id="files" autocomplete="off">
+						<label class="btn btn-outline-secondary" for="files">Файлы</label>
+						<input onclick="atLeastOneRadio()" type="radio" class="btn-check" name="options-outlined" id="legend" autocomplete="off">
+						<label class="btn btn-outline-secondary" for="legend">Условия</label>
+						<input onclick="atLeastOneRadio()" type="radio" class="btn-check" name="options-outlined" id="tests" autocomplete="off">
+						<label class="btn btn-outline-secondary" for="tests">Тесты</label>
+						<input onclick="atLeastOneRadio()" type="radio" class="btn-check" name="options-outlined" id="testing" autocomplete="off">
+						<label class="btn btn-outline-secondary" for="testing">Тестирование</label>
+						<input onclick="atLeastOneRadio()" type="radio" class="btn-check" name="options-outlined" id="package" autocomplete="off">
+						<label class="btn btn-outline-secondary" for="package">Сборка</label>
+						{% if users_problem_perms["root"] or users_problem_perms["admin"] %}
+						<input onclick="atLeastOneRadio()" type="radio" class="btn-check" name="options-outlined" id="admin" autocomplete="off">
+						<label class="btn btn-outline-dark" for="admin">Админка</label>
+						{% endif %}
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="float: right">
+						  Назад
+						</button>
+					</div>
+				</div>
+				<div class="container problem">
+					<div class="block-page">
+
+					</div>
+				</div>
+          	</section>
+</div>
+
+<script>
+	let s = document.location.hash.replace('#', '');
+	$('.block-page').html('<div class="loader"></div>');
+	$(`#${s}`).prop('checked', true);
+	$.ajax({
+
+		url: `{{ url }}/disable/reload/problems`,
+		type: "POST",
+		data: {problem_id: "{{ problem_url }}", page_type: s}
+	}).done(function(answer){
+		  $('.block-page').html(answer);
+	});
+
+	function atLeastOneRadio() {
+		let s = $('input[type=radio]:checked').attr("id");
+		$('.block-page').html('<div class="loader"></div>');
+			$.ajax({
+				url: `{{ url }}/disable/reload/problems`,
+				type: "POST",
+				data: {problem_id: "{{ problem_url }}", page_type: s}
+			}).done(function(answer){
+				  $('.block-page').html(answer);
+			});
+		window.location.href=`{{ url }}/problems/edit/{{ problem_url }}/#${s}`;
+	}
+</script>
+{% endblock %}

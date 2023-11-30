@@ -1,11 +1,11 @@
-from BACKEND.models.config import VPS_PATH
+from BACKEND.models.config import PATH
 import json
 
 
 class Permissions:
     def get_permission(self, perm):
         get_permission = perm.split('.')
-        with open(VPS_PATH + '/BACKEND/permissions.json') as js:
+        with open(PATH + '/BACKEND/json/permissions.json') as js:
             js = json.load(js)
             return dict(js[get_permission[0]][get_permission[1]])
 
@@ -16,10 +16,13 @@ class Permissions:
             res = 0
             perms_access_from = perms_access
             perms_access = perms_access.split('.')
+            # print(user_perm)
             for us_perm in user_perm["permissions"]:
                 us_perm = us_perm.split('.')
                 rs = 1
                 for j in range(min(len(us_perm), len(perms_access))):
+                    if perms_access[j] == '**':
+                        continue
                     if us_perm[j] != perms_access[j] and us_perm[j] != '*':
                         rs = 0
                         break
@@ -27,7 +30,7 @@ class Permissions:
                     res = 1
                     break
             if res:
-                print(ins)
+                # print(ins)
                 ins.add(perms_access_from)
         if len(ins) == len(perm):
             return True

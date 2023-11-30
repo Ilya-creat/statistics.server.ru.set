@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField, PasswordField, FileField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from wtforms import StringField, SubmitField, BooleanField, PasswordField, FileField, SelectField, IntegerField
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError, NumberRange
 
 from BACKEND.models.validate import validate_login, validate_login_check, validate_email_check, validate_psw
 
@@ -113,3 +113,65 @@ class EditProfile(FlaskForm):
                                                          "20 символов")],
                        render_kw={"placeholder": "Обновить инициалы (Фамилия Имя)"}, id="naming")
     submit = SubmitField("Изменить данные")
+
+
+class ProblemsCreateForm(FlaskForm):
+    section = SelectField(f'Выберете раздел:', choices=[
+        (".sport-programming", "Спортивное программирование"),
+        (".artificial-intelligence", "Исскуственный интеллект"),
+        (".machine-learn", "Машинное обучение"),
+        (".test", "Тест")
+    ], validators=[DataRequired()])
+
+    sport_programming = SelectField(f'Выберете тип', choices=[
+        (".standard", "Стандартная"),
+        (".interactive", "Интерактивная"),
+        (".twice-run", "Двойной запуск"),
+        (".open-tests", "Открытые тесты")
+    ], default=1)
+
+    artificial_intelligence = SelectField(f'Выберете тип', choices=[
+        (".standard", "Стандартная"),
+    ], default=1)
+
+    machine_learn = SelectField(f'Выберете тип', choices=[
+        (".standard", "Стандартная"),
+    ], default=1)
+
+    test = SelectField(f'Выберете тип', choices=[
+        (".standard", "Текстовая"),
+    ], default=1)
+
+    submit = SubmitField("Создать задачу")
+
+
+class ProblemSettingsTagForm(FlaskForm):
+    tag = StringField("Технический тег задачи",
+                      validators=[
+                          Length(min=1, max=20, message="Тег должен содержать "
+                                                        "не менее 1 и не более "
+                                                        "20 символов")],
+                      )
+    submit = SubmitField("Сохранить")
+
+
+class ProblemSettingsResourcesForm(FlaskForm):
+    time_limit = IntegerField("Лимит времени",
+                              validators=[
+                                  NumberRange(min=200, max=15000)
+                              ])
+    memory_limit = IntegerField("Лимит памяти",
+                                validators=[
+                                    NumberRange(min=4, max=2048)
+                                ])
+    submit = SubmitField("Сохранить")
+
+
+class ProblemSettingsDataForm(FlaskForm):
+    input_data = StringField("Ввод данных")
+    output_data = StringField("Вывод данных")
+    submit = SubmitField("Сохранить")
+
+
+class ProblemSettingsTagsForm(FlaskForm):
+    tags = StringField("Теги")
