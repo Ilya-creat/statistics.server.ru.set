@@ -8,27 +8,32 @@ import sqlite3
 import threading
 from ast import literal_eval
 
+import requests
 from flask import Flask, render_template, url_for, redirect, g, flash, request, make_response, \
-    jsonify, abort
+    jsonify, abort, session
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+import mistune
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from BACKEND.models.dataBase import DATABASE
-from BACKEND.models.forms import LoginForm, RegisterForm, ForgotForm, SendForm, EditProfile
-from BACKEND.models.taskDataBase import TaskDataBase
+from BACKEND.models.forms import LoginForm, RegisterForm, ForgotForm, SendForm, EditProfile, ProblemsCreateForm, \
+    ProblemSettingsTagForm, ProblemSettingsTagsForm, \
+    ProblemSettingsResourcesForm, ProblemSettingsDataForm
+from BACKEND.models.permissions_func import PermFunc
 from BACKEND.models.user_login import UserLogin
 from BACKEND.models.testing import Testing, ErrorTesting
 from BACKEND.models.smtp import SMTP
-from dotenv import load_dotenv
-
+from dotenv import load_dotenv, find_dotenv
+import markdown
+import markdown.extensions.fenced_code
 from BACKEND.models.validate import check_image, check_user_status
+from BACKEND.models.permissions import Permissions
 import psutil
 import platform
-from BACKEND.models.monitors import config as cfg
-from BACKEND.models.monitors import disk as tm
-from BACKEND.models.monitors import monitor_models
+import BACKEND.models.config as cnfg
 
-load_dotenv()
+load_dotenv('/var/www/statistics_judge/statistics_judge/.env')
+# load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 app = Flask(__name__, subdomain_matching=True,
@@ -36,6 +41,7 @@ app = Flask(__name__, subdomain_matching=True,
             template_folder='../WEB/templates')
 app.config.from_object(__name__)  # load configuration
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'dbase.db')))
+app.config["SECRET_KEY"] = SECRET_KEY
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(app.root_path,
                            "../WEB/static")
@@ -44,73 +50,13 @@ STATICFILES_DIRS = [
 ]
 uploads_dir = os.path.join(app.instance_path, 'post_files')
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'main'
 login_manager.login_message = "Авторизуйтесь для просмотра данной странички"
 login_manager.login_message_category = "error"
-url_locale = f"{os.getcwd()}"  # "/var/www/www-root/data/www/server.statistics-online.ru"
+url_locale = os.getcwd()  # "/var/www/statistics_judge/statistics_judge"  # "/var/www/statistics_judge/statistics_judge"
 testing = Testing()
-
-HEADER = "Statistics.Judging"
-DATE_SNAP = "2023"
-url = "http://127.0.0.1:5000"  # statistics-judging.ru
-active_since = datetime.datetime.fromtimestamp(psutil.boot_time())
-
-default_menu = {
-    "Главная": {
-        "img-icon": "bx bx-grid-alt",
-        "href": f"{url}/"
-    },
-    "Задачи": {
-        "img-icon": "bx bx-folder",
-        "href": f"{url}/problems"
-    },
-    "Контесты": {
-        "img-icon": "bx bx-code-alt",
-        "href": f"{url}/contests"
-    },
-    "Профиль": {
-        "img-icon": "bx bx-user",
-        "href": f"{url}/profile/1"
-    },
-    "Поддержка": {
-        "img-icon": "bx bx-chat",
-        "href": f"{url}/chats"
-    },
-}
-
-moder_menu = {
-    "Модерирование": {
-        "img-icon": "bx bx-windows",
-        "href": f"{url}/user_tasks"
-    },
-    "Система наказаний": {
-        "img-icon": "bx bxs-meh-blank",
-        "href": f"{url}/warns"
-    }
-}
-
-admin_menu = {
-    "Статус системы": {
-        "img-icon": "bx bxs-server",
-        "href": f"{url}/admins/status-system"
-    },
-    "Оповещения/Посты": {
-        "img-icon": "bx bx-user",
-        "href": f"{url}/admins/create-post"
-    },
-    "Модерирование": {
-        "img-icon": "bx bx-windows",
-        "href": f"{url}/user_tasks"
-    },
-    "Персонал": {
-        "img-icon": "bx bxs-user-detail",
-        "href": f"{url}/persons"
-    },
-    "Система наказаний": {
-        "img-icon": "bx bxs-meh-blank",
-        "href": f"{url}/warns"
-    }
-}
+permissions = Permissions()
+perm_func = PermFunc()
 
 
 @login_manager.user_loader
@@ -121,60 +67,52 @@ def load_user(user_id):
 dbase = DATABASE(app.config["DATABASE"])
 task = None
 
+paket = {
+    "header": cnfg.header,
+    "date_release": cnfg.date_release,
+    "url": cnfg.url,
+}
+
 
 @app.route('/', methods=["POST", "GET"])
 def main():
-    if current_user.is_authenticated and current_user.get_status() in [1, 2]:
-        return render_template('main.html',
-                               header=HEADER,
-                               date_snap=DATE_SNAP,
-                               url=url,
-                               menu=default_menu,
-                               admin_menu={},
-                               user={
-                                   "img-user": current_user.get_image(),
-                                   "name": current_user.get_name(),
-                                   "role": dbase.get_status_info(current_user.get_status()),
-                                   "role_id": current_user.get_status(),
-                                   "profile_id": current_user.get_id(),
-                                   "register": current_user.get_register(),
-                                   "color": dbase.get_color(current_user.get_status())
-                               }
-                               )
-    if current_user.is_authenticated and current_user.get_status() == 3:
-        return render_template('main.html',
-                               header=HEADER,
-                               date_snap=DATE_SNAP,
-                               url=url,
-                               menu=default_menu,
-                               admin_menu=moder_menu,
-                               user={
-                                   "img-user": current_user.get_image(),
-                                   "name": current_user.get_name(),
-                                   "role": dbase.get_status_info(current_user.get_status()),
-                                   "role_id": current_user.get_status(),
-                                   "profile_id": current_user.get_id(),
-                                   "register": current_user.get_register(),
-                                   "color": dbase.get_color(current_user.get_status())
-                               }
-                               )
-    if current_user.is_authenticated and current_user.get_status() in [4, 5, 6, 7]:
-        return render_template('main.html',
-                               header=HEADER,
-                               date_snap=DATE_SNAP,
-                               url=url,
-                               menu=default_menu,
-                               admin_menu=admin_menu,
-                               user={
-                                   "img-user": current_user.get_image(),
-                                   "name": current_user.get_name(),
-                                   "role": dbase.get_status_info(current_user.get_status()),
-                                   "role_id": current_user.get_status(),
-                                   "profile_id": current_user.get_id(),
-                                   "register": current_user.get_register(),
-                                   "color": dbase.get_color(current_user.get_status())
-                               }
-                               )
+    if current_user.is_authenticated:
+        user_permissions = permissions.get_permission(current_user.get_permissions())
+        res_menu = perm_func.check_menu(user_permissions)
+        menu = res_menu["default_menu"]
+        admin_menu = res_menu["admin_menu"]
+        nm = request.args.get("page")
+        page = 1 if not nm else int(nm)
+        posts = list(reversed(dbase.get_posts()))
+        mx_page = 1 + (max(len(posts) - 5, 0)) // 6 + (1 if (max(len(posts) - 5, 0)) % 6 else 0)
+        if page < 1:
+            return redirect('/')
+        elif page > mx_page:
+            return redirect(f'/?page={mx_page}')
+        for post in posts:
+            post.times = datetime.datetime.strftime(post.times, "%d %B %Y %H:%M")
+        if menu:
+            return render_template('main.html',
+                                   auth=True,
+                                   header=paket["header"],
+                                   date_release=paket["date_release"],
+                                   url=paket["url"],
+                                   menu=menu,
+                                   admin_menu=admin_menu,
+                                   user={
+                                       "img-user": current_user.get_image(),
+                                       "name": current_user.get_name(),
+                                       "role": user_permissions["name-ru"],
+                                       "profile_id": current_user.get_id(),
+                                       "register": current_user.get_register(),
+                                       "color": user_permissions["color"]
+                                   },
+                                   posts=posts,
+                                   page=page,
+                                   mx_page=mx_page
+                                   )
+        else:
+            return redirect('/ban?account=YOU^_^')
     else:
         form_log = LoginForm()
         if form_log.validate_on_submit():
@@ -183,28 +121,23 @@ def main():
                 userlogin = UserLogin().create(user)
                 rm = form_log.remember.data
                 login_user(userlogin, remember=rm)
-                return redirect(request.args.get('next') or '/')
-            user = dbase.get_user_by_login(form_log.indif.data)
-            if user and check_password_hash(user.psw, form_log.psw.data):
                 flash('Авторизация прошла успешно!', category='success')
-                userlogin = UserLogin().create(user)
-                rm = form_log.remember.data
-                login_user(userlogin, remember=rm)
                 return redirect(request.args.get('next') or '/')
 
             flash('Неверный Email/Логин или пароль!', category='error')
 
         return render_template('loginforms.html',
                                form_log=form_log,
-                               url=url,
-                               header=HEADER,
-                               date_snap=DATE_SNAP,
+                               header=paket["header"],
+                               date_release=paket["date_release"],
+                               url=paket["url"],
                                header_map={'Регистрация': '/register'})
 
 
 @app.route('/register', methods=["POST", "GET"])
 def register():
     form_reg = RegisterForm(dbase)
+    print(form_reg.errors)
     if form_reg.validate_on_submit():
         a = dbase.check_register_by_email(form_reg.email.data)
         b = dbase.check_register_by_login(form_reg.login.data)
@@ -226,8 +159,8 @@ def register():
               category='error')
     return render_template('register.html',
                            form_reg=form_reg,
-                           header=HEADER,
-                           date_snap=DATE_SNAP,
+                           header=paket["header"],
+                           date_release=paket["date_release"],
                            header_map={'Обратно': '/'})
 
 
@@ -249,30 +182,30 @@ def forgot():
                                    forms=True,
                                    token=token,
                                    form_forgot=form_forgot,
-                                   header=HEADER,
-                                   date_snap=DATE_SNAP,
+                                   header=paket["header"],
+                                   date_release=paket["date_release"],
                                    header_map={'Обратно': '/'})
         return render_template('forgot.html',
                                forms=True,
                                token=token,
                                form_forgot=form_forgot,
-                               header=HEADER,
-                               date_snap=DATE_SNAP,
+                               header=paket["header"],
+                               date_release=paket["date_release"],
                                header_map={'Обратно': '/'})
     elif not token:
         return render_template('forgot.html',
                                forms=False,
                                error="INVALID_TOKEN",
-                               url=url,
-                               date_snap=DATE_SNAP,
-                               header=HEADER,
+                               url=paket["url"],
+                               header=paket["header"],
+                               date_release=paket["date_release"],
                                header_map={'Обратно': '/'})
     else:
         return render_template('forgot.html',
                                forms=False,
                                error="TOKEN_IS_OUTDATED",
-                               url=url,
-                               header=HEADER,
+                               url=paket["url"],
+                               header=paket["header"],
                                header_map={'Обратно': '/'})
 
 
@@ -287,7 +220,7 @@ def refresh():
             if not token:
                 flash('Произошла ошибка! Повторите операцию позже!',
                       category='error')
-            if not smtp.send_email_for_password(url, token):
+            if not smtp.send_email_for_password(paket["url"], token):
                 flash('Произошла ошибка! Повторите операцию позже!',
                       category='error')
             else:
@@ -297,17 +230,17 @@ def refresh():
         return render_template('send.html',
                                forms=True,
                                form_send=send_form,
-                               url=url,
                                type_=type_,
-                               date_snap=DATE_SNAP,
-                               header=HEADER,
+                               url=paket["url"],
+                               header=paket["header"],
+                               date_release=paket["date_release"],
                                header_map={'Обратно': '/'})
     return render_template('send.html',
                            forms=False,
                            error="INVALID_TYPE",
-                           url=url,
-                           header=HEADER,
-                           date_snap=DATE_SNAP,
+                           url=paket["url"],
+                           header=paket["header"],
+                           date_release=paket["date_release"],
                            header_map={'Обратно': '/'})
 
 
@@ -319,7 +252,7 @@ def profile(user_id):
         if current_user.get_status() in [1, 2]:
             return render_template('profile.html',
                                    header=HEADER,
-                                   date_snap=DATE_SNAP,
+                                   date_release=date_release,
                                    url=url,
                                    menu=default_menu,
                                    admin_menu={},
@@ -339,7 +272,7 @@ def profile(user_id):
         if current_user.get_status() == 3:
             return render_template('profile.html',
                                    header=HEADER,
-                                   date_snap=DATE_SNAP,
+                                   date_release=date_release,
                                    url=url,
                                    menu=default_menu,
                                    admin_menu=moder_menu,
@@ -359,7 +292,7 @@ def profile(user_id):
         if current_user.get_status() in [4, 5, 6, 7]:
             return render_template('profile.html',
                                    header=HEADER,
-                                   date_snap=DATE_SNAP,
+                                   date_release=date_release,
                                    url=url,
                                    menu=default_menu,
                                    admin_menu=admin_menu,
@@ -380,7 +313,7 @@ def profile(user_id):
         if current_user.get_status() in [1, 2]:
             return render_template('profile.html',
                                    header=HEADER,
-                                   date_snap=DATE_SNAP,
+                                   date_release=date_release,
                                    url=url,
                                    menu=default_menu,
                                    admin_menu={},
@@ -400,7 +333,7 @@ def profile(user_id):
         if current_user.get_status() == 3:
             return render_template('profile.html',
                                    header=HEADER,
-                                   date_snap=DATE_SNAP,
+                                   date_release=date_release,
                                    url=url,
                                    menu=default_menu,
                                    admin_menu=moder_menu,
@@ -420,7 +353,7 @@ def profile(user_id):
         if current_user.get_status() in [4, 5, 6, 7]:
             return render_template('profile.html',
                                    header=HEADER,
-                                   date_snap=DATE_SNAP,
+                                   date_release=date_release,
                                    url=url,
                                    menu=default_menu,
                                    admin_menu=admin_menu,
@@ -460,54 +393,220 @@ def upload():
         return redirect(f'/profile/{current_user.get_id()}')
 
 
-@app.route('/admins/create-post')
-def create_post():
-    if current_user.get_id() < 4:
-        abort(404)
-    return render_template('admins/post.html',
-                           header=HEADER,
-                           date_snap=DATE_SNAP,
-                           url=url,
-                           menu=default_menu,
-                           admin_menu=admin_menu,
-                           user={
-                               "img-user": current_user.get_image(),
-                               "name": current_user.get_name(),
-                               "role": dbase.get_status_info(current_user.get_status()),
-                               "role_id": current_user.get_status(),
-                               "profile_id": current_user.get_id(),
-                               "register": current_user.get_register(),
-                               "color": dbase.get_color(current_user.get_status())
-                           }
-                           )
+@app.route('/post/<int:id_>', methods=["GET"])
+@login_required
+def posts_read(id_):
+    user_permissions = permissions.get_permission(current_user.get_permissions())
+    res_menu = perm_func.check_menu(user_permissions)
+    menu = res_menu["default_menu"]
+    admin_menu = res_menu["admin_menu"]
+    if menu:
+        note_md = dbase.get_post(id_)
+        if note_md:
+            import pymdownx.arithmatex as arithmatex
+            md_template = markdown.markdown(
+                note_md.content_ru, extensions=[
+                    "fenced_code",
+                    "tables",
+                    "pymdownx.inlinehilite",
+                    "pymdownx.superfences",
+                    "toc",
+                    "abbr",
+                    "attr_list",
+                    "def_list",
+                    "footnotes",
+                    "md_in_html",
+                    "admonition",
+                    "codehilite",
+                    "legacy_attrs",
+                    "legacy_em",
+                    "meta",
+                    "nl2br",
+                    "sane_lists",
+                    "wikilinks",
+                    "mdx_emdash",
+                    "bs4md",
+                    "admonition",
+                    "legacy_attrs",
+                    "legacy_em",
+                    "nl2br",
+                    "sane_lists",
+                    "smarty",
+                    "meta"
+                ],
+                extension_configs={"pymdownx.inlinehilite": {
+                    "custom_inline": [
+                        {"name": "math", "class": "arithmatex",
+                         "format": arithmatex.arithmatex_inline_format(which="generic")}
+                    ]
+                },
+                    "pymdownx.superfences": {
+                        "custom_fences": [
+                            {"name": "math", "class": "arithmatex",
+                             "format": arithmatex.arithmatex_fenced_format(which="generic")}
+                        ]
+                    }
+                }
+            )
+            status_time = 1 if (datetime.datetime.strptime(str(note_md.times),
+                                                           "%Y-%m-%d %H:%M:%S.%f") >= datetime.datetime.today() - datetime.timedelta(
+                hours=24)) else 0
+            note_md.times = datetime.datetime.strftime(note_md.times, "%d %B %Y %H:%M")
+            return render_template('posts.html',
+                                   auth=True,
+                                   header=paket["header"],
+                                   date_release=paket["date_release"],
+                                   url=paket["url"],
+                                   menu=menu,
+                                   admin_menu=admin_menu,
+                                   user={
+                                       "img-user": current_user.get_image(),
+                                       "name": current_user.get_name(),
+                                       "role": user_permissions["name-ru"],
+                                       "profile_id": current_user.get_id(),
+                                       "register": current_user.get_register(),
+                                       "color": user_permissions["color"]
+                                   },
+                                   note_md=md_template,
+                                   note_name=note_md.name_ru,
+                                   note_time=note_md.times,
+                                   status_time=status_time
+                                   )
+        else:
+            return redirect('/')
+    else:
+        return redirect('/ban?account=YOU^-^')
 
 
-@app.route('/admins/status-system')
-def status_system():
-    check_user_status(current_user)
-    return render_template('admins/monitors.html',
-                           header=HEADER,
-                           date_snap=DATE_SNAP,
-                           url=url,
-                           menu=default_menu,
-                           admin_menu=admin_menu,
-                           user={
-                               "img-user": current_user.get_image(),
-                               "name": current_user.get_name(),
-                               "role": dbase.get_status_info(current_user.get_status()),
-                               "role_id": current_user.get_status(),
-                               "profile_id": current_user.get_id(),
-                               "register": current_user.get_register(),
-                               "color": dbase.get_color(current_user.get_status())
-                           },
-                           script_version=cfg.version,
-                           active_since=active_since,
-                           days_active=(datetime.datetime.now() - active_since).days,
-                           system=platform.system(),
-                           release=platform.release(),
-                           version=platform.version(),
-                           blocks=monitor_models.get_blocks()
-                           )
+@app.route('/problems', methods=["POST", "GET"])
+@app.route('/problems/edit')
+@login_required
+def problems():
+    problems_create_form = ProblemsCreateForm()
+    user_permissions = permissions.get_permission(current_user.get_permissions())
+    res_menu = perm_func.check_menu(user_permissions)
+    menu = res_menu["default_menu"]
+    admin_menu = res_menu["admin_menu"]
+    if menu:
+        if problems_create_form.validate_on_submit():
+            section_problem = problems_create_form.section.data
+            if section_problem == '.sport-programming':
+                type_problem = problems_create_form.sport_programming.data
+            elif section_problem == '.artificial-intelligence':
+                type_problem = problems_create_form.artificial_intelligence.data
+            elif section_problem == '.machine-learn':
+                type_problem = problems_create_form.machine_learn.data
+            elif section_problem == '.test':
+                type_problem = problems_create_form.test.data
+            else:
+                flash("Произошла ошибка!", "error")
+                return redirect(url_for('problems'))
+            if dbase.create_problem(section_problem, type_problem, current_user.get_id()):
+                flash("Задача была успешно создана!", "success")
+                return redirect(url_for('problems'))
+            else:
+                flash("Произошла ошибка!", "error")
+                return redirect(url_for('problems'))
+        users_problems = reversed(dbase.get_user_problems(current_user.get_id()))
+        return render_template('problems.html',
+                               auth=True,
+                               header=paket["header"],
+                               date_release=paket["date_release"],
+                               url=paket["url"],
+                               menu=menu,
+                               admin_menu=admin_menu,
+                               user={
+                                   "img-user": current_user.get_image(),
+                                   "name": current_user.get_name(),
+                                   "role": user_permissions["name-ru"],
+                                   "profile_id": current_user.get_id(),
+                                   "register": current_user.get_register(),
+                                   "color": user_permissions["color"]
+                               },
+                               problems_create_form=problems_create_form,
+                               users_problems=users_problems
+                               )
+    else:
+        return redirect('/ban?account=YOU^-^')
+
+
+@app.route('/problems/edit/<string:problems>/')
+@login_required
+def edit_problems(problems):
+    user_permissions = permissions.get_permission(current_user.get_permissions())
+    res_menu = perm_func.check_menu(user_permissions)
+    menu = res_menu["default_menu"]
+    admin_menu = res_menu["admin_menu"]
+    if menu:
+        get_perm = perm_func.get_user_problem_permissions(dbase.get_user_problem_permissions(problems), problems,
+                                                          current_user.get_id())
+        perms_problems = perm_func.check_problem_permission(get_perm)
+        problem_info = dbase.get_problem_info(problems)
+        if not get_perm:
+            return abort(404)
+        if problem_info.section == ".sport-programming" and problem_info.type == ".standard":
+            forms = {
+                "settings-tech-tag": ProblemSettingsTagForm(),
+                "settings-resources": ProblemSettingsResourcesForm(),
+                "settings-data": ProblemSettingsDataForm(),
+                "settings-testings": None,
+                "settings-tags": ProblemSettingsTagsForm()
+            }
+            return render_template('problem.html',
+                                   auth=True,
+                                   header=paket["header"],
+                                   date_release=paket["date_release"],
+                                   url=paket["url"],
+                                   menu=menu,
+                                   admin_menu=admin_menu,
+                                   user={
+                                       "img-user": current_user.get_image(),
+                                       "name": current_user.get_name(),
+                                       "role": user_permissions["name-ru"],
+                                       "profile_id": current_user.get_id(),
+                                       "register": current_user.get_register(),
+                                       "color": user_permissions["color"]
+                                   },
+                                   problem_url=problems,
+                                   users_problem_perms=perms_problems,
+                                   )
+        return abort(404)
+    else:
+        return redirect('/ban?account=YOU^-^')
+
+
+@app.route('/disable/reload/<string:page>', methods=["POST", "GET"])
+@login_required
+def disable_reload_page(page):
+    user_permissions = permissions.get_permission(current_user.get_permissions())
+    res_menu = perm_func.check_menu(user_permissions)
+    menu = res_menu["default_menu"]
+    if menu:
+        problem_id = request.form["problem_id"]
+        page_type = request.form["page_type"]
+        get_perm = perm_func.get_user_problem_permissions(dbase.get_user_problem_permissions(problem_id), problem_id,
+                                                          current_user.get_id())
+        # perms_problems = perm_func.check_problem_permission(get_perm)
+        if not get_perm:
+            return abort(404)
+        if page == 'problems':
+            if page_type == "settings":
+                problem_info = dbase.get_problem_info(problem_id)
+                if problem_info.section == ".sport-programming" and problem_info.type == ".standard":
+                    forms = {
+                        "settings-tech-tag": ProblemSettingsTagForm(),
+                        "settings-resources": ProblemSettingsResourcesForm(),
+                        "settings-data": ProblemSettingsDataForm(),
+                        "settings-testings": None,
+                        "settings-tags": ProblemSettingsTagsForm()
+                    }
+                    return render_template("patterns/problem-settings.html",
+                                           forms=forms,
+                                           url=paket["url"]
+                                           )
+                return "1"
+            return "1"
+    return "._."
 
 
 @app.route('/logout')
@@ -518,123 +617,19 @@ def logout():
     return redirect(url_for('main'))
 
 
-@app.route('/api-v.1.0/<path:funct>', methods=['GET', 'POST'])
-def apiReturn(funct):
-    if funct == "get_task_all":
-        arg = request.args.get('ids').split(',')
-        json_ans = {}
-        for i in arg:
-            rearg = dbase.task_converter(i)
-            config = configparser.ConfigParser()  # .ini файлы
-            config.read(f'{url_locale}/instance/task/{rearg}/config.ini', encoding="utf-8")  # чтение
-            contest_name = config['Config']['name']
-            json_ans[i] = contest_name
-        return make_response(jsonify(json_ans)), 200
-
-    if funct == "get_task_name":
-        config = configparser.ConfigParser()
-        rearg = request.args.get('rearg')
-        config.read(f'{url_locale}/instance/task/{rearg}/config.ini', encoding="utf-8")  # чтение
-        return config['Config']['name'], 200
-
-    if funct == "get_task":
-        arg = request.args.get('id')
-        rearg = dbase.task_converter(arg)
-        config = configparser.ConfigParser()  # .ini файлы
-        config.read(f'{url_locale}/instance/task/{rearg}/config.ini', encoding="utf-8")  # чтение
-        contest_name = config['Config']['name']
-        contest_time_limit = config['Config']['time_limit']
-        contest_memory_limit = config['Config']['memory_limit']
-        contest_input = config['Config']['input']
-        contest_console = config['Config']['output']
-        config.read(f'{url_locale}/instance/task/{rearg}/tests/tests.ini', encoding="utf-8")  # чтение
-        ex = literal_eval(config['Examples']['ex'])
-        with open(f'{url_locale}/instance/task/{rearg}/statments/legend.TEX', 'r', encoding="utf-8") as myfile:
-            data = myfile.read()
-        with open(f'{url_locale}/instance/task/{rearg}/statments/input.TEX', 'r', encoding="utf-8") as myfile:
-            dt_input = myfile.read()
-        with open(f'{url_locale}/instance/task/{rearg}/statments/output.TEX', 'r', encoding="utf-8") as myfile:
-            dt_output = myfile.read()
-        with open(f'{url_locale}/instance/task/{rearg}/statments/score.TEX', 'r', encoding="utf-8") as myfile:
-            dt_score = myfile.read()
-        with open(f'{url_locale}/instance/task/{rearg}/statments/notes.TEX', 'r', encoding="utf-8") as myfile:
-            dt_notes = myfile.read()
-        _dict_ = {}
-        for i, j in ex.items():
-            with open(f'{url_locale}/instance/task/{rearg}/tests/input/{i}.txt', 'r', encoding="utf-8") as myfile:
-                exinp = myfile.read()
-            with open(f'{url_locale}/instance/task/{rearg}/tests/output/{j}.txt', 'r', encoding="utf-8") as myfile:
-                exout = myfile.read()
-            for key in exinp:
-                key.replace('\n', '<br>')
-            for key in exout:
-                key.replace('\n', '<br>')
-            _dict_[exinp] = exout
-
-        return make_response(jsonify(
-            name=contest_name,
-            time_limit=contest_time_limit,
-            memory_limit=contest_memory_limit,
-            c_input=contest_input,
-            c_output=contest_console,
-            task_text=data,
-            task_input=dt_input,
-            task_output=dt_output,
-            score=dt_score,
-            notes=dt_notes,
-            examples=_dict_
-        )), 200
-    if funct == 'code':
-        args_code = request.get_json()
-        db = dbase.create(args_code['contest_id'], args_code['user_id'], args_code['_id'])
-        compiler = testing.compiler(db)
-        dbase.compile_lang(db, compiler[args_code["lang"]][3])
-        new_file = open(f'{url_locale}/instance/post_files/{db}.{compiler[args_code["lang"]][1]}', 'w+', newline='',
-                        encoding="utf-8")
-        new_file.write(args_code['code'])
-        new_file.close()
-        rearg = dbase.task_converter(args_code['_id'])
-        # _GLOBAL_DECISIONS_DEQUEUE_.append([args_code, db, rearg])
-        try:
-            threading.Thread(target=Testing().testing_module, args=(args_code, db, rearg)).start()
-        except ErrorTesting:
-            with sqlite3.connect("dbase.db") as con:
-                cur = con.cursor()
-                cur.execute(f"UPDATE code_task SET status = 'bruh' WHERE id = '{db}'")
-                con.commit()
-        return 'ok', 200
-    if funct == 'testing_info':
-        if request.args.get('my') == 'true':
-            args = request.get_json()
-            ans = dbase.get_testing_result(args['user_id'], args['tasks'], args['contest'])
-            return make_response(jsonify(ans)), 200
-        else:
-            args = request.get_json()
-            ans = dbase.get_testing_result_full(args['tasks'], args['contest'])
-            return make_response(jsonify(ans)), 200
-    return {}, 200
-
-
-@app.route('/api-v.1.0', methods=['GET'])
-def testing_source():
-    return 'ok', 200
-
-
-"""@app.route('/api-v.1.0/testing', methods=['GET', 'POST'])
-def testing_proxy():
-    files = request.files['file']
-    files.save(os.path.join(uploads_dir, files.filename))
-    p = subprocess.Popen(['python3', os.path.join(uploads_dir, files.filename)], shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    ans = p.communicate(input=b'1')[0]
-    print(ans)
-    return 'ok'"""
-
-
 @app.errorhandler(404)
 def not_found(error):
     return render_template('errors/not_found.html')
 
 
+@app.route('/ban', methods=["GET", "POST"])
+@login_required
+def ban():
+    if len(permissions.get_permission(current_user.get_permissions())["permissions"]) == 0:
+        return render_template("errors/ban.html")
+    else:
+        return redirect('/')
+
+
 if __name__ == '__main__':
-    tm.start()
     app.run(host='127.0.0.1', port=5000)

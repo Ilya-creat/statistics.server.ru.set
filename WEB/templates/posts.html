@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block css %}
+{{ url_for('static', filename='css/posts.css') }}
+{% endblock %}
+{% block script %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+{% endblock %}
+{% block body %}
+		<div class="home_content">
+			<section>
+				<div class="container py-5">
+				  <div class="row">
+					<div class="col">
+					  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+						  <ol class="breadcrumb mb-0">
+							<li class="breadcrumb-item"><a href="">sjudge@ubuntu: ~</a></li>
+							  <li class="breadcrumb-item"><a href="">root</a></li>
+							  <li class="breadcrumb-item"><a href="">новости</a></li>
+							  <li class="breadcrumb-item active" aria-current="page">1 $</li>
+						  </ol>
+					  </nav>
+					</div>
+				  </div>
+				</div>
+				<div class="container name">
+					{% if status_time %}
+					<h1>{{ note_name }} <span class="badge bg-primary" style="float: right">Свежее</span></h1>
+					{% else %}
+					<h1>{{ note_name }}</h1>
+					{% endif %}
+					<p>{{ note_time }}</p>
+				</div>
+				<div class="container content">
+					{{ note_md | safe }}
+				</div>
+          	</section>
+		</div>
+	</div>
+	<script type="text/javascript">
+  		hljs.initHighlightingOnLoad();
+		$(".author").text("Автор");
+	</script>
+	<script>
+		var divs = document.querySelectorAll('.home_content .content table');
+		for (var i = 0; i < divs.length; i++) {
+			divs[i].classList.add('table');
+			divs[i].classList.add('table-bordered')
+			divs[i].classList.add('table-hover')
+		}
+
+		var divs = document.querySelectorAll('.home_content .content table thead');
+		for (var i = 0; i < divs.length; i++) {
+			divs[i].classList.add('table-light');
+		}
+	</script>
+
+{% endblock %}

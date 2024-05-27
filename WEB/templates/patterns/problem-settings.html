@@ -1,0 +1,130 @@
+<div class="settings-configuration">
+    <div class="main-info">
+        <h3>Настройки</h3>
+        <form class="forms-block-1 forms-settings-tech-tag">
+            {{ forms["settings-tech-tag"].hidden_tag() }}
+            <div class="form-group mx-sm-3 mb-2 w-25">
+                {{ forms["settings-tech-tag"].tag.label(for="tag-forms") }}
+                {{ forms["settings-tech-tag"].tag(class="form-control", id="tag-forms")}}
+                <small id="help" class="form-text text-muted">(Не более 20 символов)</small>
+            </div>
+            {{ forms["settings-tech-tag"].submit(class="btn btn-primary mx-sm-3 mb-2", id="settings-tech-tag") }}
+        </form>
+        <h3>Конфигурация ресурсов</h3>
+        <form class="forms-block-2 forms-settings-resources">
+            {{ forms["settings-resources"].hidden_tag() }}
+            <div class="form-group mx-sm-3 mb-2 w-25">
+                <span>	{{ forms["settings-resources"].time_limit.label(for="tag-forms") }} </span>
+                {{ forms["settings-resources"].time_limit(class="form-control", id="time-limit-forms")}}
+                <small id="help-config-1" class="form-text text-muted">Не менее 100 мс. и не более 15000 мс</small>
+            </div>
+            <div class="form-group mx-sm-3 mb-2 w-25">
+                <span>	{{ forms["settings-resources"].memory_limit.label(for="memory-limit-forms") }} </span>
+                {{ forms["settings-resources"].memory_limit(class="form-control", id="memory-limit-forms")}}
+                <small id="help-config-2" class="form-text text-muted">Не менее 4 мб и не более 2048 мб</small>
+            </div>
+            {{ forms["settings-resources"].submit(class="btn btn-primary mx-sm-3 mb-2", id="settings-resources") }}
+        </form>
+
+        <h3>Взаимодействие с программой</h3>
+        <form class="forms-block-3 forms-settings-data">
+            {{ forms["settings-data"].hidden_tag() }}
+            <div class="form-group mx-sm-3 mb-2 w-25">
+                <span>	{{ forms["settings-data"].input_data.label(for="ex-forms") }} </span>
+                {{ forms["settings-data"].input_data(class="form-control", id="ex-forms")}}
+                <small id="help-ex-1" class="form-text text-muted">stdin или название файла (не более 10 символов)</small>
+            </div>
+            <div class="form-group mx-sm-3 mb-2 w-25">
+                <span>	{{ forms["settings-data"].output_data.label(for="ex-forms-2") }} </span>
+                <span>	{{ forms["settings-data"].output_data(class="form-control", id="ex-forms-2") }} </span>
+                <small id="help-ex-2" class="form-text text-muted">stdout или название файла (не более 10 символов)</small>
+            </div>
+            {{ forms["settings-data"].submit(class="btn btn-primary mx-sm-3 mb-2", id="settings-data") }}
+        </form>
+
+
+        <h3>Тестирующий ресурс</h3>
+        <form class="forms-block-4">
+            <div class="form-group mx-sm-3 mb-2 w-25">
+                      <label for="server">Выбор сервера</label>
+                      <select id="server" class="form-control" disabled>
+                        <option selected>*.serv.sjudge.ru</option>
+                        <option>...</option>
+                      </select>
+                <small id="help-config-3" class="form-text text-muted">*.serv.sjudge.ru - сервера платформы</small>
+            </div>
+            <button type="submit" class="btn btn-primary mx-sm-3 mb-2" disabled>Сохранить</button>
+        </form>
+
+        <h3>Дополнительно</h3>
+        <form class="forms-block-5">
+            <div class="form-group mx-sm-3 mb-2">
+                      <label for="tags">Теги</label>
+                      <input name="tags" type="text" class="form-control" value="" id="tags" data-role="tagsinput" />
+                <small id="help-config-4" class="form-text text-muted">Теги созданы для ведения мини-заметок (Длина тега не более 20 символов)</small>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    var input = document.querySelector('input[name=tags]');
+    tagify = new Tagify(input, {
+      whitelist: ["Конструктив", "Жадник", "Бинарный поиск", "ДП", "ДП по маскам", "Сортировки", "Теория чисел", "Двумерное ДП", "Математика"],
+      maxTags: 10,
+      pattern: /^.{0,20}$/,
+
+      placeholder: "Добавить тег...",
+      dropdown: {
+        classname: "tags-look",
+        enabled: 0,
+        closeOnSelect: false
+      }
+    })
+  </script>
+  <script>
+      $(document).ready(function () {
+            $("#settings-tech-tag").on("click", function(event) {
+              sendAjaxForm("settings-tech-tag");
+              event.preventDefault();
+            });
+            $("#settings-resources").on("click", function(event) {
+              sendAjaxForm("settings-resources");
+              event.preventDefault();
+            });
+            $("#settings-data").on("click", function(event) {
+              sendAjaxForm("settings-data");
+              event.preventDefault();
+            });
+            ("#settings-testings").on("click", function(event) {
+              sendAjaxForm("settings-testings");
+              event.preventDefault();
+            });
+            $("settings-tags").on("click", function(event) {
+              sendAjaxForm("settings-tags");
+              event.preventDefault();
+            });
+        });
+      function sendAjaxForm(form_ajax) {
+            var form = $('.forms-' + form_ajax).serialize();
+            $.ajax({
+                type: "POST",
+                url: "{{ url }}/api/v1.0/settings-problems?type=" + form_ajax,
+                data: form,
+                success: function (response) {
+                    var json = jQuery.parseJSON(response);
+                    alert(json.msg);
+                    if (json.success == 'true') {
+                        form.trigger('reset');
+                    }
+                    else
+                    {
+                        console.log("Ошибка");
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+  </script>
+

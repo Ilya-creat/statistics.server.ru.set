@@ -18,10 +18,42 @@ body {
 .home_content {
     background-color: #eee;
     display: table;
-
 }
 
 .card-body .profile_details_stat {
     display: flex;
-
 }
+
+.notification {
+    margin-bottom: 75px;
+}
+
+.notif-img {
+    background-color:rgba(0, 0, 0, .5);
+}
+
+.bl-1 {
+    backdrop-filter: blur(5px);
+    border-width: 4px;
+}
+
+
+
+@media (min-width: 1100px) and (max-width: 1200px) {
+    .carousel-item .sized h5 {
+        font-size: 0.9em;
+    }
+    .carousel-item .sized p {
+        font-size: 0.6em;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1099px) {
+    .carousel-item .sized h5 {
+        font-size: 0.7em;
+    }
+    .carousel-item .sized p {
+        font-size: 0.4em;
+    }
+}
+

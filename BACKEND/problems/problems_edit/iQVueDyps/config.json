@@ -1,0 +1,26 @@
+{
+    "config": {
+        "name": "",
+        "resources": {
+            "stdin": "stdin",
+            "stdout": "stdout",
+            "time-limit-exceed": 1000,
+            "memory-limit-exceed": 256
+        },
+        "scripts": {
+            "validator": "",
+            "checker": "",
+            "gen": ""
+        },
+        "tags": [],
+        "examples": [],
+        "admin-verify-out": [],
+        "testing": {
+            "format": "",
+            "groups": {},
+            "group-testing": [],
+            "each-test": {},
+            "each-test-testing": []
+        }
+    }
+}

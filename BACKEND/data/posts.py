@@ -8,8 +8,12 @@ class Posts(SqlAlchemyBase):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    description = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    content = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    name_ru = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    name_en = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    sub_content_ru = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    sub_content_en = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    content_ru = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    content_en = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     times = sqlalchemy.Column(sqlalchemy.DateTime,
                                   default=(datetime.datetime.now() + datetime.timedelta(hours=1)))
     tags = sqlalchemy.Column(sqlalchemy.JSON, nullable=True, default={
@@ -18,3 +22,4 @@ class Posts(SqlAlchemyBase):
     authors = sqlalchemy.Column(sqlalchemy.JSON, nullable=True, default={
         "authors": [],
     })
+    status = sqlalchemy.Column(sqlalchemy.Integer, default=0)

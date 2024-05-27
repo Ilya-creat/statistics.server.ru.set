@@ -120,6 +120,12 @@ body,html {
   animation: progress 5s linear forwards;
 }
 
+
+
+.toast_v.active {
+    display: block;
+}
+
 @keyframes progress {
   100% {
     right: 100%;
@@ -156,12 +162,13 @@ body,html {
     align-items: center;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 .sidebar_stat.active .logo_content_stat .logo_stat {
     opacity: 1;
     pointer-events: none;
+    transition: all 0.8s ease;
 }
 .logo_content_stat .logo_stat i {
     font-size: 28px;
@@ -201,7 +208,6 @@ body,html {
     position: relative;
     height: 50px;
     width: 100%;
-    margin: 0 5px;
     list-style: none;
     line-height: 50px;
 }
@@ -225,7 +231,7 @@ body,html {
     display: none;
 }
 .sidebar_stat ul li:hover .tooltip_stat{
-    transition: all 0.5s ease;
+    transition: all 0.2s ease;
     top: 50%;
     opacity: 1;
 }
@@ -235,7 +241,7 @@ body,html {
     display: flex;
     align-items: center;
     text-decoration: none;
-    transition: all 0.4s ease;
+    transition: all 0.01s ease;
     border-radius: 12px;
     white-space: nowrap;
 }
@@ -262,7 +268,7 @@ body,html {
 .sidebar_stat.active .links_name_stat {
     opacity: 1;
     pointer-events: auto;
-    transition: all 0.2s ease;
+    transition: all 0.8s ease;
 }
 
 .sidebar_stat .profile_content_stat {
@@ -295,6 +301,7 @@ body,html {
 .sidebar_stat.active .profile_stat .profile_details_stat {
     opacity: 1;
     pointer-events: auto;
+    transition: all 0.8s ease;
 }
 .profile_stat .profile_details_stat img {
     height: 45px;
@@ -383,6 +390,7 @@ body,html {
 .sidebar_stat.active .footer_stat .footer_details_stat {
     opacity: 1;
     pointer-events: auto;
+    transition: all 0.8s ease;
 }
 
 .footer_stat .footer_details_stat .name_data_stat{
@@ -421,3 +429,35 @@ body,html {
 .sidebar_stat .admin_nav_list_stat li i {
     color: #e35606;
 }
+.author {
+    font-weight: bold;
+    color: #c299ff;
+}
+
+.loader {
+    color: #11101d;
+    font-family: Consolas, Menlo, Monaco, monospace;
+    font-weight: bold;
+    font-size: 78px;
+    opacity: 0.8;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+  .loader:before {
+    content: "{";
+    display: inline-block;
+    animation: pulse 0.4s alternate infinite ease-in-out;
+  }
+  .loader:after {
+    content: "}";
+    display: inline-block;
+    animation: pulse 0.4s 0.3s alternate infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    to {
+      transform: scale(0.8);
+      opacity: 0.5;
+    }
+  }

@@ -1,0 +1,82 @@
+{
+  "default-group": {
+    "account-ban": {
+      "name-ru": "",
+      "name-en": "",
+      "color": "",
+      "permissions": [
+      ],
+      "inheritance": []
+    },
+    "default": {
+      "name-ru": "Пользователь",
+      "name-en": "",
+      "color": "#c299ff",
+      "permissions": [
+        "sjudge.posts.read"
+      ],
+      "inheritance": []
+    },
+    "author": {
+      "name-ru": "Автор",
+      "name-en": "",
+      "color": "#c299ff",
+      "permissions": [
+        "sjudge.author.menu",
+        "sjudge.problems.*",
+        "sjudge.contests.private.*",
+        "sjudge.courses.private.*"
+      ],
+      "inheritance": [
+        "default-group.default"
+      ]
+    },
+    "coordinator": {
+      "name-ru": "Координатор",
+      "name-en": "",
+      "color": "",
+      "permissions": [
+        "sjudge.author.menu",
+        "sjudge.problems.*",
+        "sjudge.contests.global.*",
+        "sjudge.courses.global.*"
+      ],
+      "inheritance": [
+        "default-group.default"
+      ]
+    },
+    "moder": {
+      "name-ru": "Модератор",
+      "name-en": "",
+      "color": "",
+      "permissions": [
+        "sjudge.moder.menu"
+      ],
+      "inheritance": [
+        "default-group.author"
+      ]
+    },
+    "admin": {
+      "name-ru": "Админ",
+      "name-en": "",
+      "color": "",
+      "permissions": [
+        "sjudge.admin.menu"
+      ],
+      "inheritance": [
+        "default-group.moder"
+      ]
+    },
+    "super-admin": {
+      "name-ru": "Главный Админ",
+      "name-en": "",
+      "color": "",
+      "permissions": [
+        "*"
+      ],
+      "inheritance": [
+        "default-group.admin"
+      ]
+    }
+  }
+}
